@@ -64,7 +64,6 @@ public class FightManager : MonoBehaviour
     {
         BiomeforEnemies = new Biomes();
         SaveSystem.LoadBiomeforFight(BiomeforEnemies);
-        Debug.Log(BiomeforEnemies.Name);
         EndPanel.SetActive(false);
 
         for (int i = 0; i < enemiesInFight; i++)
@@ -78,7 +77,6 @@ public class FightManager : MonoBehaviour
         for (int i = 0; i < enemiesInFight; i++)
         {
             Characters.Add(GameObject.FindGameObjectsWithTag("Enemy")[i]);
-            Debug.Log(Characters[i+1]);
        }
 
         Initiatives = new int?[Characters.Count];
@@ -150,6 +148,7 @@ public class FightManager : MonoBehaviour
             if (EnemyList[i].Initiative == null)
             {
                 Characters.Remove(EnemyList[i].gameObject);
+                EnemyList.Remove(EnemyList[i]);
             }
         }
         if (Characters.Count <= 1)

@@ -34,7 +34,7 @@ public class   EncounterStart : MonoBehaviour
 
             if (isMoving())
             {
-               if (Random.Range(0, 200) == 0)
+               if (Random.Range(0, 1) == 0)
                 {
                     StartEncounter();
                     
@@ -73,8 +73,10 @@ public class   EncounterStart : MonoBehaviour
 
     IEnumerator WaitandLoad()
     {
+        
         yield return new WaitForSeconds(1);
         //SAVE
+
         SceneManager.LoadScene("InEncounter");
     }
 }

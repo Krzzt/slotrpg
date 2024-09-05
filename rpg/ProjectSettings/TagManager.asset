@@ -14,6 +14,12 @@ TagManager:
   - SaveSystem
   - InvMenu
   - test
+  - Slot0
+  - Slot1
+  - Slot2
+  - UniPlayer
+  - SlotMode
+  - ContButton
   layers:
   - Default
   - TransparentFX
