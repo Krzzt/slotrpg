@@ -36,13 +36,15 @@ public static class SaveSystem
 
     public static void SaveSlotIcons(SlotArray SlotsToSave)
     {
+     
         string SlotJson = JsonUtility.ToJson(SlotsToSave);
         File.WriteAllText(Application.dataPath + "/saveSlotIcons.txt", SlotJson);
+       
     }
 
-    public static void LoadSlotIcons(SlotArray SlotsToLoad)
+    public static void LoadSlotIcons(SlotArray SlotArrayToLoad)
     {
         string loadSlots = File.ReadAllText(Application.dataPath + "/saveSlotIcons.txt");
-        JsonUtility.FromJsonOverwrite(loadSlots, SlotsToLoad);
+        JsonUtility.FromJsonOverwrite(loadSlots, SlotArrayToLoad);
     }
 }

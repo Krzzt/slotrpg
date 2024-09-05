@@ -42,7 +42,7 @@ public class PlayerInEncounter : MonoBehaviour
     public UniversalSlots UniversalSlots;
     public GameObject SlotObject;
 
-    public SlotArray slots = new SlotArray();
+    public SlotArray slots;
 
     public Transform playerpopupTransform;
 
@@ -61,9 +61,13 @@ public class PlayerInEncounter : MonoBehaviour
         SelectEnemy.SetActive(false);
         PlayerHealthTextObject = GameObject.FindWithTag("HealthText");
         PlayerHealthText = PlayerHealthTextObject.GetComponent<TMP_Text>();
+        slots = new SlotArray();
         SaveSystem.checkIfExists("saveSlotIcons.txt");
         SaveSystem.LoadSlotIcons(slots);
-        equipSlots = slots.SlotArrayforSave;
+        for (int i = 0; i < slots.SlotIDs.Length; i++)
+        {
+            equipSlots[i] = Slots.allSlots[slots.SlotIDs[i]];
+        }
         UniPlayerGameObject = GameObject.FindWithTag("UniPlayer");
         UniversalSlots = UniPlayerGameObject.GetComponent<UniversalSlots>();
         SlotImages = UniversalSlots.SlotSprites;
@@ -111,7 +115,9 @@ public class PlayerInEncounter : MonoBehaviour
         rolledSlots[1] = equipSlots[slot1];
         rolledSlots[2] = equipSlots[slot2];
         Slot0.sprite = SlotImages[rolledSlots[0].ID];
+        yield return new WaitForSeconds(0.3f);
         Slot1.sprite = SlotImages[rolledSlots[1].ID];
+        yield return new WaitForSeconds(0.3f);
         Slot2.sprite = SlotImages[rolledSlots[2].ID];
         ContButton.SetActive(true);
 
@@ -142,8 +148,7 @@ public class PlayerInEncounter : MonoBehaviour
     
 }
 
-
 public class SlotArray
 {
-    public SlotSkill[] SlotArrayforSave;
+    public int[] SlotIDs;
 }
