@@ -117,6 +117,16 @@ public class FightManager : MonoBehaviour
             }
             
         }
+        for (int i = 0; i < GameObject.FindGameObjectsWithTag("Enemy").Length; i++)
+        {
+            EnemyList.Add(GameObject.FindGameObjectsWithTag("Enemy")[i].GetComponent<Enemy>());
+        }
+        EnemyList = EnemyList.OrderByDescending(Enemy => Enemy.Initiative).ToList();
+        for (int i = 0; i < EnemyList.Count; i++)
+        {
+            totalFightExp += EnemyList[i].expValue;
+
+        }
         if (Characters[currTurn] == PlayerObject)
         {
             Player.TurnStart();
@@ -126,16 +136,7 @@ public class FightManager : MonoBehaviour
             Enemy currEnemyScript = Characters[currTurn].GetComponent<Enemy>();
             currEnemyScript.TurnStart();
         }
-        for (int i = 0; i < GameObject.FindGameObjectsWithTag("Enemy").Length; i++)
-        {
-            EnemyList.Add(GameObject.FindGameObjectsWithTag("Enemy")[i].GetComponent<Enemy>());
-        }
-        EnemyList = EnemyList.OrderByDescending(Enemy => Enemy.Initiative).ToList();
-        for (int i = 0; i < EnemyList.Count; i++)
-        {
-            totalFightExp += EnemyList[i].expValue;
-            
-        }
+
     }
 
     public void NextTurn()

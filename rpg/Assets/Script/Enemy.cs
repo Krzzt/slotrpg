@@ -100,7 +100,7 @@ public class Enemy : MonoBehaviour
         {
             Player.targetEnemy = gameObject;
             Player.DamagePopupTransform = this.gameObject.transform.GetChild(0);
-            float damageDealt = ((float)Player.AttackDamage * (float)((float)Random.Range(900, 1301) / 1000f));
+            float damageDealt = ((float)Player.DamageToDeal * (float)((float)Random.Range(900, 1301) / 1000f));
             DamagePopup.Create((int)damageDealt, false, Player.DamagePopupTransform.position);
             EnemyHealth.DamageUnit((int)damageDealt);
             Player.SelectEnemy.SetActive(false);

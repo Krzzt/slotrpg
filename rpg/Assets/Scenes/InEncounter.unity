@@ -536,9 +536,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 186981585449947193, guid: 02e674f666d36554d801a7884199f151, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 186981585449947193, guid: 02e674f666d36554d801a7884199f151, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 522109100186476399, guid: 02e674f666d36554d801a7884199f151, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 813118194977193700, guid: 02e674f666d36554d801a7884199f151, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 813118194977193700, guid: 02e674f666d36554d801a7884199f151, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 813118194977193700, guid: 02e674f666d36554d801a7884199f151, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 813118194977193700, guid: 02e674f666d36554d801a7884199f151, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 813118194977193700, guid: 02e674f666d36554d801a7884199f151, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6542405567325177769, guid: 02e674f666d36554d801a7884199f151, type: 3}
       propertyPath: m_LocalPosition.x
@@ -584,6 +612,26 @@ PrefabInstance:
       propertyPath: playerpopupTransform
       value: 
       objectReference: {fileID: 536390021}
+    - target: {fileID: 7820859378143506333, guid: 02e674f666d36554d801a7884199f151, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7820859378143506333, guid: 02e674f666d36554d801a7884199f151, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7820859378143506333, guid: 02e674f666d36554d801a7884199f151, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7820859378143506333, guid: 02e674f666d36554d801a7884199f151, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7820859378143506333, guid: 02e674f666d36554d801a7884199f151, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

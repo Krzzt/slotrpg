@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class PlayerInEncounter : MonoBehaviour
     public int MaxHealth;
     public int InitiativeBonus;
     public int AttackDamage = 5;
+    public float DamageToDeal;
     public int Defense;
 
     public int Initiative;
@@ -72,7 +74,7 @@ public class PlayerInEncounter : MonoBehaviour
         UniversalSlots = UniPlayerGameObject.GetComponent<UniversalSlots>();
         SlotImages = UniversalSlots.SlotSprites;
         ContButton.SetActive(false);
-      
+        DamageToDeal = AttackDamage;
 
 
     }
@@ -119,11 +121,64 @@ public class PlayerInEncounter : MonoBehaviour
         Slot1.sprite = SlotImages[rolledSlots[1].ID];
         yield return new WaitForSeconds(0.3f);
         Slot2.sprite = SlotImages[rolledSlots[2].ID];
+        ApplyEffects();
         ContButton.SetActive(true);
 
 
 
 
+    }
+
+    public void ApplyEffects()
+    {
+        List<SlotSkill> rolledSlotList = rolledSlots.ToList<SlotSkill>();
+        int[] IDCount = new int[Slots.allSlots.Count];
+        for (int i = 0; i < rolledSlotList.Count; i++)
+        {
+            IDCount[rolledSlotList[i].ID]++;
+        }
+        if (IDCount[0] == 1)
+        {
+            DamageToDeal *= 1.05f;
+            Debug.Log("Sword1");
+        }
+        else if (IDCount[0] == 2)
+        {
+            DamageToDeal *= 1.1f;
+            Debug.Log("Sword2");
+        }
+        else if (IDCount[0] == 3)
+        {
+            DamageToDeal *= 1.3f;
+            Debug.Log("Sword3");
+        }
+        if (IDCount[1] == 1)
+        {
+            PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.05f));
+            PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
+        }
+        else if (IDCount[1] == 2)
+        {
+            PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.10f));
+            PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
+        }
+        else if (IDCount[1] == 3)
+        {
+            PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.30f));
+            PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
+        }
+        if (IDCount[2] == 1)
+        {
+            //poison1
+        }
+        else if (IDCount[2] == 2)
+        {
+            //poison2
+        }
+        else if (IDCount[2] == 3)
+        {
+            //poison4
+        }
     }
     public void AttackMode()
     {
