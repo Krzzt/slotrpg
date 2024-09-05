@@ -177,10 +177,10 @@ public class FightManager : MonoBehaviour
         }
         else
         {
-
             Enemy currEnemyScript = Characters[currTurn].GetComponent<Enemy>();
             currEnemyScript.TurnStart();
         }
+    
     }
 
     public void EndFight()

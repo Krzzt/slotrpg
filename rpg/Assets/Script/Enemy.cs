@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour
     public Transform DamagePopupTransform;
     public Transform EnemyPopUpTransform;
 
+    public bool[] FightOptionBool = new bool[2];
 
 
 
@@ -42,14 +43,15 @@ public class Enemy : MonoBehaviour
         FightManagerObject = GameObject.FindWithTag("FightManager");
         FightManager = FightManagerObject.GetComponent<FightManager>();
         DamagePopupTransform = GameObject.FindWithTag("PlayerPopup").transform;
-    
-     
+
+        FightOptionBool[0] = usingAI.isAttacking;
+        FightOptionBool[1] = usingAI.isHealing;
 
     }
 
     private void Start()
     {
-
+      
     }
     // Update is called once per frame
     void Update()
@@ -59,40 +61,24 @@ public class Enemy : MonoBehaviour
 
     public void TurnStart()
     {
-        if (usingAI.isAttacking && usingAI.isHealing)
-        {
-            int chooser = Random.Range(0, 2);
-            if (chooser == 0)
-            {
-                Attack();
-            }
 
-            else
+        int random = Random.Range(0, FightOptionBool.Length);
+        while (!FightOptionBool[random])
+        {
+            random = Random.Range(0, FightOptionBool.Length);
+        }
+        if (FightOptionBool[random])
+        {
+
+            switch (random)
             {
-                Heal();
+                case 0: Attack(); FightManager.NextTurn(); break;
+                case 1: Heal(); FightManager.NextTurn(); break;
             }
         }
-        else if (usingAI.isAttacking)
-        {
-            Attack();
-        }
-        else if (usingAI.isHealing)
-        {
-            Heal();
-        }
-        else
-        {
-            Debug.Log("NICHTS KANN ER TUN");
-        }
-   
-        
-        
-           
-        
-        FightManager.NextTurn();
-
 
     }
+
     public void OnMouseDown()
     {
        
@@ -109,6 +95,7 @@ public class Enemy : MonoBehaviour
             {
                 Dead();
             }
+            Debug.Log("GEKLICKT UND NÄCHSTE RUNDE!");
             FightManager.NextTurn();
         }
     }
