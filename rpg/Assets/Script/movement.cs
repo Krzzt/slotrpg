@@ -16,6 +16,7 @@ public class movement : MonoBehaviour
 
     public GameObject InvMenu;
     public bool invIsActive = false;
+    public SlotInventory inventoryScript;
 
 
     // Update is called once per frame
@@ -25,6 +26,7 @@ public class movement : MonoBehaviour
         Camera = GameObject.FindWithTag("MainCamera");
         sceneCamera = Camera.GetComponent<Camera>();
         InvMenu = GameObject.FindWithTag("test");
+        inventoryScript = InvMenu.GetComponent<SlotInventory>();
        InvMenu.SetActive(false);
 
 
@@ -39,11 +41,13 @@ public class movement : MonoBehaviour
         {
             invIsActive = true;
             InvMenu.SetActive(true);
+            inventoryScript.OpenInvImages();
         }
         else if (Input.GetKeyDown("e") && invIsActive)
         {
             invIsActive = false;
             InvMenu.SetActive(false);
+            inventoryScript.AutoFill();
         }
         
 

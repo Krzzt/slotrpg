@@ -34,7 +34,7 @@ public class   EncounterStart : MonoBehaviour
 
             if (isMoving())
             {
-               if (Random.Range(0, 1) == 0)
+               if (Random.Range(0, 200) == 0)
                 {
                     StartEncounter();
                     
