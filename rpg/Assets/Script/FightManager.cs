@@ -41,6 +41,9 @@ public class FightManager : MonoBehaviour
 
     public GameObject SaveSystemObject;
 
+    public GameObject UniPlayerObject;
+    public ExpSystem ExpSystem;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -55,7 +58,8 @@ public class FightManager : MonoBehaviour
         ExpTextEndOfFight = EndPanel.GetComponentInChildren<TMP_Text>();
         PlayerOWObject = GameObject.FindWithTag("PlayerOW");
         PlayerOWObject.SetActive(false);
-
+        UniPlayerObject = GameObject.FindWithTag("UniPlayer");
+        ExpSystem = UniPlayerObject.GetComponent<ExpSystem>();
 
 
 
@@ -188,7 +192,6 @@ public class FightManager : MonoBehaviour
        
         EndPanel.SetActive(true);
         ExpTextEndOfFight.SetText("Exp: " + totalFightExp);
-        
         fightIsOver = true;
         StartCoroutine(WaitandSetEXP());
        
@@ -213,6 +216,7 @@ public class FightManager : MonoBehaviour
             {
                 framesforCountdown++;
                 ExpTextEndOfFight.SetText("Exp: " + (totalFightExp - framesforCountdown));
+                ExpSystem.addExp(1);
             }
             else
             {

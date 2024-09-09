@@ -49,6 +49,7 @@ public class PlayerInEncounter : MonoBehaviour
     public Transform playerpopupTransform;
 
     public GameObject ContButton;
+
  
 
 
@@ -200,6 +201,10 @@ public class PlayerInEncounter : MonoBehaviour
         
     }
 
+    public void LevelUp()
+    {
+        DamagePopup.CreateLvlUp(playerpopupTransform.position);
+    }
     
 }
 

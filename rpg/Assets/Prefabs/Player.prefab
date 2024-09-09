@@ -655,6 +655,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9bb4bc7f37cb3b4a8fb449c2c3086c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
+  currExp: 0
+  expToLvlUp: 100
+  PlayerInEncounterObject: {fileID: 0}
+  PlayerInEncounter: {fileID: 0}
 --- !u!1 &638874944984702351
 GameObject:
   m_ObjectHideFlags: 0

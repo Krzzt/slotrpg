@@ -1,1 +1,1 @@
-{"Name":"1st Biome","EnemyTypesInBiome":[{"instanceID":25228},{"instanceID":25230}]}
+{"Name":"1st Biome","EnemyTypesInBiome":[{"instanceID":25234},{"instanceID":25236}]}

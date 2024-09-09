@@ -4,15 +4,37 @@ using UnityEngine;
 
 public class ExpSystem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int level;
+    public int currExp;
+    public int expToLvlUp;
+
+    public GameObject PlayerInEncounterObject;
+    public PlayerInEncounter PlayerInEncounter;
+
+    private void Awake()
     {
-        
+        PlayerInEncounterObject = GameObject.FindWithTag("Player");
+        PlayerInEncounter = PlayerInEncounterObject.GetComponent<PlayerInEncounter>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void addExp(int amount)
     {
-        
+        currExp += amount;
+
+        if (currExp >= expToLvlUp)
+        {
+            LevelUp();
+
+        }
+        Debug.Log(currExp);
     }
+
+    public void LevelUp()
+    {
+        currExp -= expToLvlUp;
+        level++;
+        expToLvlUp = (int)(expToLvlUp * 1.5f);
+        PlayerInEncounter.LevelUp();
+    }
+
 }
