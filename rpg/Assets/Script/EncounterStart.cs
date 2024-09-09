@@ -12,14 +12,19 @@ public class   EncounterStart : MonoBehaviour
     public GameObject GameManagerObject;
     public GameManager GameManagerScript;
 
-
+    public positionSave savePos = new positionSave();
 
     
 
     private void Awake()
     {
+
+        SaveSystem.checkIfExists("/savePos.txt");
+        SaveSystem.LoadPos(savePos);
         GameManagerObject = GameObject.FindWithTag("GameManager"); ;
         GameManagerScript = GameManagerObject.GetComponent<GameManager>();
+
+        gameObject.transform.position = savePos.position;
 
     }
 
@@ -34,7 +39,7 @@ public class   EncounterStart : MonoBehaviour
 
             if (isMoving())
             {
-               if (Random.Range(0, 200) == 0)
+               if (Random.Range(0, 70) == 0)
                 {
                     StartEncounter();
                     
@@ -65,7 +70,10 @@ public class   EncounterStart : MonoBehaviour
     {
         SaveSystem.checkIfExists("/saveBiome.txt");
         SaveSystem.SaveBiome(GameManagerScript.currentBiome);
-        Debug.Log("WE SAVED IT!");
+        savePos.position = gameObject.transform.position;
+        SaveSystem.checkIfExists("/savePos.txt");
+        SaveSystem.SavePos(savePos);
+        Debug.Log("postosave" + savePos.position.ToString());
         StartCoroutine(WaitandLoad());
         SceneManager.LoadSceneAsync("InEncounter");
     }
@@ -79,4 +87,10 @@ public class   EncounterStart : MonoBehaviour
 
         SceneManager.LoadScene("InEncounter");
     }
+}
+
+
+public class positionSave
+{
+   public Vector3 position;
 }

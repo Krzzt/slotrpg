@@ -170,6 +170,23 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 7008344503396676407, guid: e7bbb6c5a91139e48929a99918bfb93e, type: 3}
   m_PrefabInstance: {fileID: 1335162200930526528}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &386564048 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 522109100186476399, guid: 02e674f666d36554d801a7884199f151, type: 3}
+  m_PrefabInstance: {fileID: 8439368665156596409}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &386564051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386564048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9bb4bc7f37cb3b4a8fb449c2c3086c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &387864164 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3627598942958480660, guid: 02e674f666d36554d801a7884199f151, type: 3}
@@ -277,7 +294,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10, y: 10}
+  m_Size: {x: 500, y: 500}
   m_EdgeRadius: 0
 --- !u!1 &440061410 stripped
 GameObject:
@@ -1092,7 +1109,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2046725340639607454, guid: 02e674f666d36554d801a7884199f151, type: 3}
       insertIndex: -1
       addedObject: {fileID: 674373969}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 522109100186476399, guid: 02e674f666d36554d801a7884199f151, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 386564051}
   m_SourcePrefab: {fileID: 100100000, guid: 02e674f666d36554d801a7884199f151, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

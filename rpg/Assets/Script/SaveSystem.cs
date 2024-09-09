@@ -47,4 +47,19 @@ public static class SaveSystem
         string loadSlots = File.ReadAllText(Application.dataPath + "/saveSlotIcons.txt");
         JsonUtility.FromJsonOverwrite(loadSlots, SlotArrayToLoad);
     }
+
+
+
+
+    public static void SavePos(positionSave posToSave)
+    {
+        string transToSaveString = JsonUtility.ToJson(posToSave);
+        File.WriteAllText(Application.dataPath + "/savePos.txt", transToSaveString);
+    }
+
+    public static void LoadPos (positionSave posToLoad)
+    {
+        string loadTransform = File.ReadAllText(Application.dataPath + "/savePos.txt");
+        JsonUtility.FromJsonOverwrite(loadTransform, posToLoad);
+    }
 }

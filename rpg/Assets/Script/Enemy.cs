@@ -95,7 +95,6 @@ public class Enemy : MonoBehaviour
             {
                 Dead();
             }
-            Debug.Log("GEKLICKT UND NÄCHSTE RUNDE!");
             FightManager.NextTurn();
         }
     }
