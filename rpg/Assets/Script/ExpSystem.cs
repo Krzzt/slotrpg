@@ -26,7 +26,6 @@ public class ExpSystem : MonoBehaviour
             LevelUp();
 
         }
-        Debug.Log(currExp);
     }
 
     public void LevelUp()

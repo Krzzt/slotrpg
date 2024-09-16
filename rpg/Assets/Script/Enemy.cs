@@ -30,6 +30,9 @@ public class Enemy : MonoBehaviour
 
     public bool[] FightOptionBool = new bool[2];
 
+    public int[] ConditionSeverity = new int[10];
+
+    
 
 
     // Start is called before the first frame update
@@ -59,6 +62,12 @@ public class Enemy : MonoBehaviour
         
     }
 
+    public void TakeDamage(int amount, string type)
+    {
+        EnemyHealth.DamageUnit(amount);
+        DamagePopup.Create(amount, type, Player.DamagePopupTransform.position);
+    }
+
     public void TurnStart()
     {
 
@@ -72,8 +81,8 @@ public class Enemy : MonoBehaviour
 
             switch (random)
             {
-                case 0: Attack(); FightManager.NextTurn(); break;
-                case 1: Heal(); FightManager.NextTurn(); break;
+                case 0: Attack(); EndTurn(); break;
+                case 1: Heal(); EndTurn(); break;
             }
         }
 
@@ -87,8 +96,16 @@ public class Enemy : MonoBehaviour
             Player.targetEnemy = gameObject;
             Player.DamagePopupTransform = this.gameObject.transform.GetChild(0);
             float damageDealt = ((float)Player.DamageToDeal * (float)((float)Random.Range(900, 1301) / 1000f));
-            DamagePopup.Create((int)damageDealt, false, Player.DamagePopupTransform.position);
-            EnemyHealth.DamageUnit((int)damageDealt);
+            TakeDamage((int)damageDealt, "Damage");
+
+            for (int i = 0; i < ConditionSeverity.Length; i++)
+            {
+                if(Player.nextHitEffects[i] > ConditionSeverity[i])
+                {
+                    ConditionSeverity[i] = Player.nextHitEffects[i];
+                }
+            }
+
             Player.SelectEnemy.SetActive(false);
             Player.isAttackMode = false;
             if (EnemyHealth._currentHealth <= 0)
@@ -101,7 +118,7 @@ public class Enemy : MonoBehaviour
     public void Attack()
     {
         float damageDealt = ((float)AttackDamage * (float)((float)Random.Range(900, 1201) / 1000f));
-        Player.DamagePlayer((int)damageDealt);
+        Player.DamagePlayer((int)damageDealt, "Damage");
         if (Player.PlayerHealth._currentHealth <= 0)
         {
             Destroy(PlayerObject);
@@ -180,11 +197,55 @@ public class Enemy : MonoBehaviour
 
     }
 
+    public void EndTurn()
+    {
+        ApplyStatusEffects();
+        FightManager.NextTurn();
+    }
+
+    public void ApplyStatusEffects()
+    {
+        for(int i = 0; i < ConditionSeverity.Length; i++)
+        {
+            if (ConditionSeverity[i] > 0)
+            {
+                StartCoroutine(EffectApplied(i));
+            }
+        }
+    }
+
+    IEnumerator EffectApplied(int ID)
+    {
+        yield return null;
+        switch (ID)
+        {
+            case 0:
+                //Poison
+                PoisonDMG(ConditionSeverity[ID]);
+                break;
+
+        }
+    }
+
     public void Dead()
     {
         Initiative = null;
         gameObject.SetActive(false);
     }
+
+
+    public void PoisonDMG(int Severity)
+    {
+        int dmgToDeal = (int)(EnemyHealth._currentMaxHealth * (Severity * 0.03));
+        
+        if (dmgToDeal <= 0)
+        {
+            dmgToDeal = 1;
+        }
+        TakeDamage(dmgToDeal, "Poison");
+    }
+
+
 
     public int? GetInitiative() { return Initiative; }
     public int GetHealth() { return EnemyHealth._currentHealth; }

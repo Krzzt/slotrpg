@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pfDamagePopup: {fileID: 6237941420555050487, guid: ad927c9d6c30ce8448bea0b1bdcb5b80, type: 3}
+  TextBox: {fileID: 6084137672170881554, guid: a20ce5c6d93b75e4391b414290b43731, type: 3}

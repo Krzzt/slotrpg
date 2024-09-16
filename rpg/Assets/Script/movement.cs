@@ -37,13 +37,13 @@ public class movement : MonoBehaviour
        
             ProcessInputs();
             move();
-        if (Input.GetKeyDown("e") && !invIsActive)
+        if (Input.GetKeyDown("i") && !invIsActive)
         {
             invIsActive = true;
             InvMenu.SetActive(true);
             inventoryScript.OpenInvImages();
         }
-        else if (Input.GetKeyDown("e") && invIsActive)
+        else if (Input.GetKeyDown("i") && invIsActive)
         {
             invIsActive = false;
             InvMenu.SetActive(false);
@@ -55,6 +55,18 @@ public class movement : MonoBehaviour
 
 
 
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if ( Input.GetKeyDown("e"))
+        {
+            if (collision.gameObject.tag == "PickUp")
+            {
+                PickUpSlotItem(collision.gameObject);
+            }
+        }
+    
     }
 
     void ProcessInputs()
@@ -73,6 +85,13 @@ public class movement : MonoBehaviour
         rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
 
 
+    }
+
+
+    void PickUpSlotItem(GameObject ObjectToPickUp)
+    {
+        PickUpItemLogic Item = ObjectToPickUp.GetComponent<PickUpItemLogic>();
+        Item.PickUpSlot();
     }
 }
 

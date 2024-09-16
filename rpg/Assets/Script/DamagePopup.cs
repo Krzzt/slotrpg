@@ -21,30 +21,35 @@ public class DamagePopup : MonoBehaviour
         textColor = UtilsClass.GetColorFromString("ffffff");
     }
 
-    public static DamagePopup Create( int damageAmount, bool isCrit, Vector3 position)
+    public static DamagePopup Create( int damageAmount, string type, Vector3 position)
     {
         Transform damagePopupTransform = Instantiate(GameAssets.i.pfDamagePopup, position, Quaternion.identity);
         DamagePopup damagePopup = damagePopupTransform.GetComponent<DamagePopup>();
-        damagePopup.Setup(damageAmount, isCrit, position);
+        damagePopup.Setup(damageAmount,type , position);
         return damagePopup;
         
 
     }
-    public void Setup (int damageAmount, bool isCrit, Vector3 position)
+    public void Setup (int damageAmount, string Type, Vector3 position)
     {
         textmesh.SetText(damageAmount.ToString());
         disappearTimer = DISAPPEAR_TIMER_MAX;
         
-        if (isCrit)
+        if (Type.Equals("Heal"))
         {
-            textmesh.fontSize = 10;
-            textColor = UtilsClass.GetColorFromString("f21f1f");
+          
+            textColor = UtilsClass.GetColorFromString("4ccf66");
         }
-        else
+        else if (Type.Equals("Damage"))
         {
-            textmesh.fontSize = 8;
+           
             textColor = UtilsClass.GetColorFromString("ffffff");
         }
+        else if (Type.Equals("Poison"))
+        {
+            textColor = UtilsClass.GetColorFromString("1E9A1A");
+        }
+        textmesh.fontSize = 8;
         textmesh.color = textColor;
 
         moveVector = new Vector3(0, 6);
@@ -75,8 +80,7 @@ public class DamagePopup : MonoBehaviour
         }
         else
         {
-            textmesh.fontSize = 8;
-            textColor = UtilsClass.GetColorFromString("4ccf66");
+
         }
         textmesh.color = textColor;
 

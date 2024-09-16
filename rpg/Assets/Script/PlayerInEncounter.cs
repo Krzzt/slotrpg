@@ -50,6 +50,8 @@ public class PlayerInEncounter : MonoBehaviour
 
     public GameObject ContButton;
 
+    public int[] nextHitEffects = new int[10];
+
  
 
 
@@ -92,6 +94,7 @@ public class PlayerInEncounter : MonoBehaviour
 
     public void TurnStart()
     {
+        nextHitEffects = new int[10];
         Buttons.SetActive(true);
 
     }
@@ -141,17 +144,14 @@ public class PlayerInEncounter : MonoBehaviour
         if (IDCount[0] == 1)
         {
             DamageToDeal *= 1.05f;
-            Debug.Log("Sword1");
         }
         else if (IDCount[0] == 2)
         {
             DamageToDeal *= 1.1f;
-            Debug.Log("Sword2");
         }
         else if (IDCount[0] == 3)
         {
             DamageToDeal *= 1.3f;
-            Debug.Log("Sword3");
         }
         if (IDCount[1] == 1)
         {
@@ -171,14 +171,17 @@ public class PlayerInEncounter : MonoBehaviour
         if (IDCount[2] == 1)
         {
             //poison1
+            nextHitEffects[0] = 1;
         }
         else if (IDCount[2] == 2)
         {
             //poison2
+            nextHitEffects[0] = 2;
         }
         else if (IDCount[2] == 3)
         {
             //poison4
+            nextHitEffects[0] = 4;
         }
     }
     public void AttackMode()
@@ -193,10 +196,10 @@ public class PlayerInEncounter : MonoBehaviour
     public int GetHealth() { return PlayerHealth._currentHealth; }
 
 
-    public void DamagePlayer(int amount)
+    public void DamagePlayer(int amount,string type)
     {
         PlayerHealth.DamageUnit(amount);
-        DamagePopup.Create(amount, false, playerpopupTransform.position);
+        DamagePopup.Create(amount, type, playerpopupTransform.position);
         PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
         
     }
