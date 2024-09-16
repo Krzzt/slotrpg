@@ -14,7 +14,6 @@ public class   EncounterStart : MonoBehaviour
 
     public positionSave savePos = new positionSave();
 
-    
 
     private void Awake()
     {
@@ -39,7 +38,7 @@ public class   EncounterStart : MonoBehaviour
 
             if (isMoving())
             {
-               if (Random.Range(0, 70) == 0)
+               if (Random.Range(0, 200) == 0)
                 {
                     StartEncounter();
                     
@@ -87,6 +86,8 @@ public class   EncounterStart : MonoBehaviour
 
         SceneManager.LoadScene("InEncounter");
     }
+
+
 }
 
 

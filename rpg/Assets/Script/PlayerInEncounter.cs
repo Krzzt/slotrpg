@@ -8,15 +8,11 @@ using UnityEngine.UI;
 
 public class PlayerInEncounter : MonoBehaviour
 {
-    
-    public UnitHealth PlayerHealth = new UnitHealth(0, 0);
-    public int MaxHealth;
-    public int InitiativeBonus;
-    public int AttackDamage = 5;
-    public float DamageToDeal;
-    public int Defense;
+ 
 
-    public int Initiative;
+    public UnitHealth PlayerHealth = new UnitHealth(0, 0);
+    public float DamageToDeal;
+
 
     public GameObject Buttons;
     public GameObject SelectEnemy;
@@ -52,23 +48,36 @@ public class PlayerInEncounter : MonoBehaviour
 
     public int[] nextHitEffects = new int[10];
 
- 
+    public Player player = new Player
+    {
+        level = 1,
+        exp = 0,
+        expToNextLevel = 100,
+        AttackDamage = 5,
+        MaxHealth = 50,
+        currentHealth = 50,
+        Defense = 1,
+        Initiative = 8,
+
+    };
 
 
     // Start is called before the first frame update
     void Awake()
     {
-        PlayerHealth.addmaxHealth(MaxHealth);
-        PlayerHealth._currentHealth = MaxHealth;
-        Initiative = Random.Range(49, 50);
+        SaveSystem.checkIfExists("/Player.txt");
+        SaveSystem.LoadPlayer(player);
+        PlayerHealth.addmaxHealth(player.MaxHealth);
+        PlayerHealth._currentHealth = player.currentHealth;
         SlotObject.SetActive(false);
         Buttons.SetActive(false);
         SelectEnemy.SetActive(false);
         PlayerHealthTextObject = GameObject.FindWithTag("HealthText");
         PlayerHealthText = PlayerHealthTextObject.GetComponent<TMP_Text>();
         slots = new SlotArray();
-        SaveSystem.checkIfExists("saveSlotIcons.txt");
+        SaveSystem.checkIfExists("/saveSlotIcons.txt");
         SaveSystem.LoadSlotIcons(slots);
+
         for (int i = 0; i < slots.SlotIDs.Length; i++)
         {
             equipSlots[i] = Slots.allSlots[slots.SlotIDs[i]];
@@ -77,7 +86,7 @@ public class PlayerInEncounter : MonoBehaviour
         UniversalSlots = UniPlayerGameObject.GetComponent<UniversalSlots>();
         SlotImages = UniversalSlots.SlotSprites;
         ContButton.SetActive(false);
-        DamageToDeal = AttackDamage;
+        DamageToDeal = player.AttackDamage;
 
 
     }
@@ -95,6 +104,7 @@ public class PlayerInEncounter : MonoBehaviour
     public void TurnStart()
     {
         nextHitEffects = new int[10];
+        DamageToDeal = player.AttackDamage;
         Buttons.SetActive(true);
 
     }
@@ -157,16 +167,19 @@ public class PlayerInEncounter : MonoBehaviour
         {
             PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.05f));
             PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
+            Debug.Log("health to heal: " + PlayerHealth._currentMaxHealth * 0.05f);
         }
         else if (IDCount[1] == 2)
         {
             PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.10f));
             PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
+            Debug.Log("health to heal: " + PlayerHealth._currentMaxHealth * 0.10f);
         }
         else if (IDCount[1] == 3)
         {
             PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.30f));
             PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
+            Debug.Log("health to heal: " + PlayerHealth._currentMaxHealth * 0.30f);
         }
         if (IDCount[2] == 1)
         {
@@ -192,7 +205,7 @@ public class PlayerInEncounter : MonoBehaviour
         SelectEnemy.SetActive(true);
     }
     
-    public int GetInitiative() { return Initiative; }
+    public int GetInitiative() { return player.Initiative; }
     public int GetHealth() { return PlayerHealth._currentHealth; }
 
 
@@ -206,7 +219,20 @@ public class PlayerInEncounter : MonoBehaviour
 
     public void LevelUp()
     {
+        player.exp -= player.expToNextLevel;
+        player.level++;
+        player.expToNextLevel = (int)(player.expToNextLevel * 1.5f);
         DamagePopup.CreateLvlUp(playerpopupTransform.position);
+
+
+
+        player.AttackDamage = (int)(player.AttackDamage * 1.2f);
+        player.MaxHealth = (int)(player.MaxHealth * 1.1f);
+        player.currentHealth = (int)(player.currentHealth + ((int)(player.MaxHealth * 1.1f)));
+        player.Defense++;
+        player.Initiative += 3;
+        
+
     }
     
 }
@@ -214,4 +240,17 @@ public class PlayerInEncounter : MonoBehaviour
 public class SlotArray
 {
     public int[] SlotIDs;
+}
+
+
+public class Player
+{
+    public int level;
+    public int exp;
+    public int expToNextLevel;
+    public int AttackDamage;
+    public int MaxHealth;
+    public int currentHealth;
+    public int Defense;
+    public int Initiative;
 }

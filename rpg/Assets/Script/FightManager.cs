@@ -70,6 +70,13 @@ public class FightManager : MonoBehaviour
         SaveSystem.LoadBiomeforFight(BiomeforEnemies);
         EndPanel.SetActive(false);
 
+        GameObject tempEnemy = BiomeforEnemies.EnemyTypesInBiome[0];
+        Enemy tempEnemyScript = tempEnemy.GetComponent<Enemy>();
+        if (tempEnemyScript.bossImmunities)
+        {
+            enemiesInFight = 1;
+        }
+
         for (int i = 0; i < enemiesInFight; i++)
         {
             generatedEnemies.Add(BiomeforEnemies.EnemyTypesInBiome[UnityEngine.Random.Range(0, BiomeforEnemies.EnemyTypesInBiome.Count)]);
@@ -169,6 +176,10 @@ public class FightManager : MonoBehaviour
 
     IEnumerator WaitPlease()
     {
+        if (Characters.Count <= 1)
+        {
+            EndFight();
+        }
         yield return new WaitForSeconds(1);
         currTurn++;
         if (currTurn > Characters.Count - 1)
@@ -177,6 +188,10 @@ public class FightManager : MonoBehaviour
         }
         if (Characters[currTurn] == PlayerObject)
         {
+            if (Characters.Count <= 1)
+            {
+                EndFight();
+            }
             Player.TurnStart();
         }
         else
@@ -233,6 +248,7 @@ public class FightManager : MonoBehaviour
     }
     IEnumerator EndEncounter()
     {
+        SaveSystem.SavePlayer(Player.player);
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(0);
     }

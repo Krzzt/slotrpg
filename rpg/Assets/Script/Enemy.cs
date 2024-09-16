@@ -32,6 +32,7 @@ public class Enemy : MonoBehaviour
 
     public int[] ConditionSeverity = new int[10];
 
+    public bool bossImmunities;
     
 
 
@@ -66,6 +67,10 @@ public class Enemy : MonoBehaviour
     {
         EnemyHealth.DamageUnit(amount);
         DamagePopup.Create(amount, type, Player.DamagePopupTransform.position);
+        if (EnemyHealth._currentHealth <= 0)
+        {
+            Dead();
+        }
     }
 
     public void TurnStart()
@@ -150,7 +155,7 @@ public class Enemy : MonoBehaviour
                 }
             }
             EnemyPopUpTransform = EnemyLowHP.transform.GetChild(0);
-            DamagePopup.CreateHeal(HealAmount, false, EnemyPopUpTransform.position);
+            DamagePopup.Create(HealAmount, "Heal", EnemyPopUpTransform.position);
             EnemyLowHPScript.EnemyHealth.HealUnit(HealAmount);
 
 
@@ -173,7 +178,7 @@ public class Enemy : MonoBehaviour
                 }
             }
             EnemyPopUpTransform = EnemyLowHP.transform.GetChild(0);
-            DamagePopup.CreateHeal(HealAmount, false, EnemyPopUpTransform.position);
+            DamagePopup.Create(HealAmount, "Heal", EnemyPopUpTransform.position);
             EnemyLowHPScript.EnemyHealth.HealUnit(HealAmount);
 
 
@@ -191,7 +196,7 @@ public class Enemy : MonoBehaviour
                     GameObject EnemyLowHP = TempEnemyList[tempRandomDecider].gameObject;
                     Enemy EnemyLowHPScript = TempEnemyList[tempRandomDecider];
                     EnemyPopUpTransform = EnemyLowHP.transform.GetChild(0);
-                    DamagePopup.CreateHeal(HealAmount, false, EnemyPopUpTransform.position);
+                    DamagePopup.Create(HealAmount, "Heal", EnemyPopUpTransform.position);
                     EnemyLowHPScript.EnemyHealth.HealUnit(HealAmount);
         }
 
@@ -222,6 +227,7 @@ public class Enemy : MonoBehaviour
             case 0:
                 //Poison
                 PoisonDMG(ConditionSeverity[ID]);
+                yield return new WaitForSeconds(0.2f);
                 break;
 
         }
@@ -236,13 +242,27 @@ public class Enemy : MonoBehaviour
 
     public void PoisonDMG(int Severity)
     {
-        int dmgToDeal = (int)(EnemyHealth._currentMaxHealth * (Severity * 0.03));
-        
-        if (dmgToDeal <= 0)
+        if (bossImmunities)
         {
-            dmgToDeal = 1;
+            int dmgToDeal = (int)(EnemyHealth._currentHealth * (Severity * 0.01));
+
+            if (dmgToDeal <= 0)
+            {
+                dmgToDeal = 1;
+            }
+            TakeDamage(dmgToDeal, "Poison");
         }
-        TakeDamage(dmgToDeal, "Poison");
+        else
+        {
+            int dmgToDeal = (int)(EnemyHealth._currentMaxHealth * (Severity * 0.03));
+
+            if (dmgToDeal <= 0)
+            {
+                dmgToDeal = 1;
+            }
+            TakeDamage(dmgToDeal, "Poison");
+        }
+
     }
 
 

@@ -62,4 +62,19 @@ public static class SaveSystem
         string loadTransform = File.ReadAllText(Application.dataPath + "/savePos.txt");
         JsonUtility.FromJsonOverwrite(loadTransform, posToLoad);
     }
+
+
+
+    public static void SavePlayer(Player playerToSave)
+    {
+        string playerString = JsonUtility.ToJson(playerToSave);
+        File.WriteAllText(Application.dataPath + "/Player.txt", playerString);
+    }
+
+
+    public static void LoadPlayer(Player playerToLoad)
+    {
+        string loadPlayerString = File.ReadAllText(Application.dataPath + "/Player.txt");
+        JsonUtility.FromJsonOverwrite(loadPlayerString, playerToLoad);
+    }
 }

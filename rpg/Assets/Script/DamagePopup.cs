@@ -58,37 +58,8 @@ public class DamagePopup : MonoBehaviour
 
     }
 
-    public static DamagePopup CreateHeal(int healAmount, bool isCrit, Vector3 position)
-    {
-        Transform damagePopupTransform = Instantiate(GameAssets.i.pfDamagePopup, position, Quaternion.identity);
-        DamagePopup damagePopup = damagePopupTransform.GetComponent<DamagePopup>();
-        damagePopup.SetupHeal(healAmount, isCrit, position);
-        return damagePopup;
 
 
-    }
-
-    public void SetupHeal(int HealAmount, bool isCrit, Vector3 position)
-    {
-        textmesh.SetText(HealAmount.ToString());
-        disappearTimer = DISAPPEAR_TIMER_MAX;
-
-        if (isCrit)
-        {
-            textmesh.fontSize = 12;
-            textColor = UtilsClass.GetColorFromString("77ff00");
-        }
-        else
-        {
-
-        }
-        textmesh.color = textColor;
-
-        moveVector = new Vector3(0, 6);
-
-
-
-    }
     private void Update()
     {
 
