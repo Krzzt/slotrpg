@@ -33,7 +33,10 @@ public class Enemy : MonoBehaviour
     public int[] ConditionSeverity = new int[10];
 
     public bool bossImmunities;
+
+    public int EnemyID;
     
+    public BossList checkList = new BossList();
 
 
     // Start is called before the first frame update
@@ -50,6 +53,12 @@ public class Enemy : MonoBehaviour
 
         FightOptionBool[0] = usingAI.isAttacking;
         FightOptionBool[1] = usingAI.isHealing;
+
+        if (bossImmunities)
+        {
+            SaveSystem.checkIfExists("/bossList.txt");
+            SaveSystem.LoadBossList(checkList);
+        }
 
     }
 
@@ -235,6 +244,14 @@ public class Enemy : MonoBehaviour
 
     public void Dead()
     {
+        if (EnemyID > 50)
+        {
+            checkList.bossesDefeated[EnemyID-50] = true;
+        }
+        SaveSystem.SaveBossList(checkList);
+
+
+
         Initiative = null;
         gameObject.SetActive(false);
     }
@@ -273,3 +290,7 @@ public class Enemy : MonoBehaviour
 
 
 
+public class BossList
+{
+    public bool[] bossesDefeated;
+}

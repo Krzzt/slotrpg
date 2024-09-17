@@ -77,4 +77,17 @@ public static class SaveSystem
         string loadPlayerString = File.ReadAllText(Application.dataPath + "/Player.txt");
         JsonUtility.FromJsonOverwrite(loadPlayerString, playerToLoad);
     }
+
+
+    public static void SaveBossList(BossList listToSave)
+    {
+        string saveBoss = JsonUtility.ToJson(listToSave);
+        File.WriteAllText(Application.dataPath + "/bossList.txt", saveBoss);
+    }
+
+    public static void LoadBossList(BossList listToLoad)
+    {
+        string loadList = File.ReadAllText(Application.dataPath + "/bossList.txt");
+        JsonUtility.FromJsonOverwrite(loadList, listToLoad);
+    }
 }
