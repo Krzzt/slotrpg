@@ -167,19 +167,16 @@ public class PlayerInEncounter : MonoBehaviour
         {
             PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.05f));
             PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
-            Debug.Log("health to heal: " + PlayerHealth._currentMaxHealth * 0.05f);
         }
         else if (IDCount[1] == 2)
         {
             PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.10f));
             PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
-            Debug.Log("health to heal: " + PlayerHealth._currentMaxHealth * 0.10f);
         }
         else if (IDCount[1] == 3)
         {
             PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.30f));
             PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
-            Debug.Log("health to heal: " + PlayerHealth._currentMaxHealth * 0.30f);
         }
         if (IDCount[2] == 1)
         {
@@ -228,7 +225,7 @@ public class PlayerInEncounter : MonoBehaviour
 
         player.AttackDamage = (int)(player.AttackDamage * 1.2f);
         player.MaxHealth = (int)(player.MaxHealth * 1.1f);
-        player.currentHealth = (int)(player.currentHealth + ((int)(player.MaxHealth * 1.1f)));
+        player.currentHealth = (int)(player.currentHealth + ((int)(player.MaxHealth * 0.1f)));
         player.Defense++;
         player.Initiative += 3;
         

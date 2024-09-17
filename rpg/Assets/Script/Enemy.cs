@@ -76,6 +76,7 @@ public class Enemy : MonoBehaviour
     {
         EnemyHealth.DamageUnit(amount);
         DamagePopup.Create(amount, type, Player.DamagePopupTransform.position);
+        Debug.Log("HP: " + EnemyHealth._currentHealth);
         if (EnemyHealth._currentHealth <= 0)
         {
             Dead();
@@ -224,6 +225,7 @@ public class Enemy : MonoBehaviour
             if (ConditionSeverity[i] > 0)
             {
                 StartCoroutine(EffectApplied(i));
+                ConditionSeverity[i]--;
             }
         }
     }
@@ -244,7 +246,7 @@ public class Enemy : MonoBehaviour
 
     public void Dead()
     {
-        if (EnemyID > 50)
+        if (EnemyID >= 50)
         {
             checkList.bossesDefeated[EnemyID-50] = true;
         }

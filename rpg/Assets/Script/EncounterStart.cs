@@ -40,8 +40,13 @@ public class   EncounterStart : MonoBehaviour
             {
                if (Random.Range(0, 200) == 0)
                 {
-                    StartEncounter();
-                    
+                    if (GameManagerScript.currentBiome.name != "The no Fight Biomes")
+                    {
+                        StartEncounter();
+                    }
+
+
+
                 }
             }
             frames = 0;

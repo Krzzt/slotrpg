@@ -112,6 +112,8 @@ MonoBehaviour:
   EnemyPopUpTransform: {fileID: 0}
   FightOptionBool: 0000
   ConditionSeverity: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+  bossImmunities: 0
+  EnemyID: 1
 --- !u!70 &4242911726597651664
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

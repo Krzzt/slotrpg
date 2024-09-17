@@ -3846,6 +3846,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6458460572726963546, guid: 62c883c74eb9039479bee1be88af1105, type: 3}
+      propertyPath: moveSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6732336869882777926, guid: 62c883c74eb9039479bee1be88af1105, type: 3}
       propertyPath: m_Name
       value: PlayerOverworld
