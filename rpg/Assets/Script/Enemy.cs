@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
 
     public int EnemyID;
     
-    public BossList checkList = new BossList();
+    public BossList checkList = new BossList { bossesDefeated = new bool[10] };
 
 
     // Start is called before the first frame update
@@ -250,7 +250,7 @@ public class Enemy : MonoBehaviour
         }
         SaveSystem.SaveBossList(checkList);
 
-
+        FightManager.checkForEndFight();
 
         Initiative = null;
         gameObject.SetActive(false);

@@ -21,7 +21,7 @@ public class BossTrigger : MonoBehaviour
         encounterStarter = Player.GetComponent<EncounterStart>();
         GameManagerObject = GameObject.FindWithTag("GameManager");
         GameManager = GameManagerObject.GetComponent<GameManager>();
-
+        checkIfLoad.bossesDefeated = new bool[10];
         SaveSystem.checkIfExists("/bossList.txt");
         SaveSystem.LoadBossList(checkIfLoad);
 

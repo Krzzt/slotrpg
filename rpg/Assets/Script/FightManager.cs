@@ -214,6 +214,14 @@ public class FightManager : MonoBehaviour
         //SceneManager.LoadScene(0);
     }
 
+
+    public void checkForEndFight()
+    {
+        if (Characters.Count <= 1)
+        {
+            EndFight();
+        }
+    }
     IEnumerator WaitandSetEXP()
     {
         yield return new WaitForSeconds(1);

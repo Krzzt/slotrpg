@@ -18,6 +18,12 @@ public class movement : MonoBehaviour
     public bool invIsActive = false;
     public SlotInventory inventoryScript;
 
+    public GameObject PickUpTextObject;
+
+
+    public bool canPickUpSlotObject;
+    public GameObject SlotToPickUp;
+    
 
     // Update is called once per frame
 
@@ -27,7 +33,9 @@ public class movement : MonoBehaviour
         sceneCamera = Camera.GetComponent<Camera>();
         InvMenu = GameObject.FindWithTag("test");
         inventoryScript = InvMenu.GetComponent<SlotInventory>();
+        PickUpTextObject = GameObject.FindWithTag("PickUpText");
        InvMenu.SetActive(false);
+        PickUpTextObject.SetActive(false);
 
 
 
@@ -50,7 +58,13 @@ public class movement : MonoBehaviour
             inventoryScript.AutoFill();
         }
         
-
+        if (Input.GetKeyDown("e"))
+        {
+            if (canPickUpSlotObject)
+            {
+                PickUpSlotItem(SlotToPickUp);
+            }
+        } 
       
 
 
@@ -59,14 +73,26 @@ public class movement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if ( Input.GetKeyDown("e"))
+
+        if (collision.gameObject.tag == "PickUp")
         {
-            if (collision.gameObject.tag == "PickUp")
-            {
-                PickUpSlotItem(collision.gameObject);
-            }
+            SlotToPickUp = collision.gameObject;
+            PickUpTextObject.SetActive(true);
+            canPickUpSlotObject = true;
         }
+   
     
+    }
+
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "PickUp")
+        {
+            canPickUpSlotObject = false;
+            PickUpTextObject.SetActive(false);
+            SlotToPickUp = null;
+        }
     }
 
     void ProcessInputs()
