@@ -2240,7 +2240,7 @@ PrefabInstance:
     - target: {fileID: 4071751648170853013, guid: 02e674f666d36554d801a7884199f151, type: 3}
       propertyPath: SlotSprites.Array.data[3]
       value: 
-      objectReference: {fileID: 21300000, guid: c75bdd4f32f47a441854da3088b783b2, type: 3}
+      objectReference: {fileID: 21300000, guid: 12cb1c3fbea32ff4bb4a1b9125beed22, type: 3}
     - target: {fileID: 6542405567325177769, guid: 02e674f666d36554d801a7884199f151, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -29,8 +29,8 @@ public class PlayerInEncounter : MonoBehaviour
     public GameObject PlayerHealthTextObject;
     public TMP_Text PlayerHealthText;
     public Sprite[] SlotImages = new Sprite[20];
-    public Image[] equipSlotImages = new Image[3];
-    public SlotSkill[] equipSlots = new SlotSkill[3];
+    public Image[] equipSlotImages = new Image[5];
+    public SlotSkill[] equipSlots = new SlotSkill[5];
     public Image Slot0;
     public Image Slot1;
     public Image Slot2;
@@ -48,6 +48,9 @@ public class PlayerInEncounter : MonoBehaviour
 
     public int[] nextHitEffects = new int[10];
 
+    public float InFightDefenseBooster;
+    public float InFightDamageBooster;
+
     public Player player = new Player
     {
         level = 1,
@@ -60,6 +63,10 @@ public class PlayerInEncounter : MonoBehaviour
         Initiative = 8,
 
     };
+
+    int[] IDCount = new int[Slots.allSlots.Count];
+
+    public TMP_Text[] effectTexts = new TMP_Text[3];
 
 
     // Start is called before the first frame update
@@ -124,9 +131,9 @@ public class PlayerInEncounter : MonoBehaviour
     IEnumerator Slotstart()
     {
         yield return new WaitForSeconds(0.3f);
-        int slot0 = Random.Range(0, 3);
-        int slot1 = Random.Range(0, 3);
-        int slot2 = Random.Range(0, 3);
+        int slot0 = Random.Range(0, 5);
+        int slot1 = Random.Range(0, 5);
+        int slot2 = Random.Range(0, 5);
         rolledSlots[0] = equipSlots[slot0];
         rolledSlots[1] = equipSlots[slot1];
         rolledSlots[2] = equipSlots[slot2];
@@ -137,6 +144,7 @@ public class PlayerInEncounter : MonoBehaviour
         Slot2.sprite = SlotImages[rolledSlots[2].ID];
         ApplyEffects();
         ContButton.SetActive(true);
+        SetEffectTexts();
 
 
 
@@ -146,11 +154,13 @@ public class PlayerInEncounter : MonoBehaviour
     public void ApplyEffects()
     {
         List<SlotSkill> rolledSlotList = rolledSlots.ToList<SlotSkill>();
-        int[] IDCount = new int[Slots.allSlots.Count];
+
         for (int i = 0; i < rolledSlotList.Count; i++)
         {
             IDCount[rolledSlotList[i].ID]++;
         }
+
+        //Sword
         if (IDCount[0] == 1)
         {
             DamageToDeal *= 1.05f;
@@ -163,6 +173,7 @@ public class PlayerInEncounter : MonoBehaviour
         {
             DamageToDeal *= 1.3f;
         }
+        //Heart
         if (IDCount[1] == 1)
         {
             PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.05f));
@@ -175,9 +186,10 @@ public class PlayerInEncounter : MonoBehaviour
         }
         else if (IDCount[1] == 3)
         {
-            PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.30f));
+            PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.20f));
             PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
         }
+        //Poison
         if (IDCount[2] == 1)
         {
             //poison1
@@ -192,6 +204,66 @@ public class PlayerInEncounter : MonoBehaviour
         {
             //poison4
             nextHitEffects[0] = 4;
+        }
+        //Shield
+        if (IDCount[3] == 1)
+        {
+            InFightDefenseBooster += 0.1f;
+        }
+        else if (IDCount[3] == 2)
+        {
+            InFightDefenseBooster += 0.2f;
+        }
+        else if (IDCount[3] == 3)
+        {
+            InFightDefenseBooster += 0.7f;
+        }
+        //Stun
+        if (IDCount[4] == 1)
+        {
+            //nothing
+        }
+        else if (IDCount[4] == 2)
+        {
+            nextHitEffects[1] = 1;
+        }
+        else if (IDCount[4] == 3)
+        {
+            nextHitEffects[1] = 3;
+        }
+
+    }
+
+    public void ClearEverything()
+    {
+        Slot0.sprite = null;
+        Slot1.sprite = null;
+        Slot2.sprite = null;
+        effectTexts[0].text = "";
+        effectTexts[1].text = "";
+        effectTexts[2].text = "";
+    }
+
+    public void SetEffectTexts()
+    {
+        int index = 0;
+        for (int i = 0; i < IDCount.Length; i++)
+        {
+            if (IDCount[i] == 1)
+            {
+                effectTexts[index].SetText(Slots.allSlots[i].Desc1);
+                index++;
+            }
+            else if (IDCount[i] == 2)
+            {
+                effectTexts[index].SetText(Slots.allSlots[i].Desc2);
+                index++;
+            }
+            else if (IDCount[i] == 3)
+            {
+                effectTexts[index].SetText(Slots.allSlots[i].Desc3);
+                index++;
+            }
         }
     }
     public void AttackMode()
@@ -208,6 +280,12 @@ public class PlayerInEncounter : MonoBehaviour
 
     public void DamagePlayer(int amount,string type)
     {
+
+        amount -= player.Defense;
+        if (amount <= 0)
+        {
+            amount = 1;
+        }
         PlayerHealth.DamageUnit(amount);
         DamagePopup.Create(amount, type, playerpopupTransform.position);
         PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);

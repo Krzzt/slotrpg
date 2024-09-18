@@ -9,8 +9,8 @@ public class SlotInventory : MonoBehaviour
 {
    
     public SlotSkill[] SlotsUnlocked = new SlotSkill[20];
-    public SlotSkill[] currSlots = new SlotSkill[3];
-    public Image[] EquippedSlotImages = new Image[3];
+    public SlotSkill[] currSlots = new SlotSkill[5];
+    public Image[] EquippedSlotImages = new Image[5];
     public Sprite[] SpriteSlots = new Sprite[20];
 
 
@@ -22,8 +22,10 @@ public class SlotInventory : MonoBehaviour
     public GameObject SlotImageObject0;
     public GameObject SlotImageObject1;
     public GameObject SlotImageObject2;
+    public GameObject SlotImageObject3;
+    public GameObject SlotImageObject4;
 
-    public int[] currSlotIDs = new int[3];
+    public int[] currSlotIDs = new int[5];
 
     public SlotArray SlotArray = new SlotArray();
 
@@ -78,7 +80,7 @@ public class SlotInventory : MonoBehaviour
     public void EquipSlot0()
     {
     
-        if (SelectedID != currSlots[0].ID && SelectedID != currSlots[1].ID && SelectedID != currSlots[2].ID)
+        if (SelectedID != currSlots[0].ID && SelectedID != currSlots[1].ID && SelectedID != currSlots[2].ID && SelectedID != currSlots[3].ID && SelectedID != currSlots[4].ID)
         {
             SlotArray.SlotIDs = currSlotIDs;
             currSlots[0] = Slots.allSlots[SelectedID];
@@ -90,7 +92,7 @@ public class SlotInventory : MonoBehaviour
 
     public void EquipSlot1()
     {
-        if (SelectedID != currSlots[0].ID && SelectedID != currSlots[1].ID && SelectedID != currSlots[2].ID)
+        if (SelectedID != currSlots[0].ID && SelectedID != currSlots[1].ID && SelectedID != currSlots[2].ID && SelectedID != currSlots[3].ID && SelectedID != currSlots[4].ID)
         {
             SlotArray.SlotIDs = currSlotIDs;
             currSlots[1] = Slots.allSlots[SelectedID];
@@ -101,11 +103,31 @@ public class SlotInventory : MonoBehaviour
 
     public void EquipSlot2()
     {
-        if (SelectedID != currSlots[0].ID && SelectedID != currSlots[1].ID && SelectedID != currSlots[2].ID)
+        if (SelectedID != currSlots[0].ID && SelectedID != currSlots[1].ID && SelectedID != currSlots[2].ID && SelectedID != currSlots[3].ID && SelectedID != currSlots[4].ID)
         {
             SlotArray.SlotIDs = currSlotIDs;
             currSlots[2] = Slots.allSlots[SelectedID];
             EquippedSlotImages[2].sprite = SpriteSlots[currSlots[2].ID];
+        }
+
+    }
+    public void EquipSlot3()
+    {
+        if (SelectedID != currSlots[0].ID && SelectedID != currSlots[1].ID && SelectedID != currSlots[2].ID && SelectedID != currSlots[3].ID && SelectedID != currSlots[4].ID)
+        {
+            SlotArray.SlotIDs = currSlotIDs;
+            currSlots[3] = Slots.allSlots[SelectedID];
+            EquippedSlotImages[3].sprite = SpriteSlots[currSlots[3].ID];
+        }
+
+    }
+    public void EquipSlot4()
+    {
+        if (SelectedID != currSlots[0].ID && SelectedID != currSlots[1].ID && SelectedID != currSlots[2].ID && SelectedID != currSlots[3].ID && SelectedID != currSlots[4].ID)
+        {
+            SlotArray.SlotIDs = currSlotIDs;
+            currSlots[4] = Slots.allSlots[SelectedID];
+            EquippedSlotImages[4].sprite = SpriteSlots[currSlots[4].ID];
         }
 
     }
@@ -148,6 +170,7 @@ public class SlotInventory : MonoBehaviour
         for (int i = 0; i < UnlockedSlots.Length; i++)
         {
             UnlockedSlots[i] = Slots.allSlots[i].Unlocked;
+            
             if (UnlockedSlots[i])
             {
                 UnlockedSlotsCount++;
@@ -204,6 +227,16 @@ public class SlotInventory : MonoBehaviour
         {
             currSlots[2] = Slots.allSlots[2];
             EquippedSlotImages[2].sprite = SpriteSlots[currSlots[2].ID];
+        }
+        if (currSlots[3] == null)
+        {
+            currSlots[3] = Slots.allSlots[3];
+            EquippedSlotImages[3].sprite = SpriteSlots[currSlots[3].ID];
+        }
+        if (currSlots[4] == null)
+        {
+            currSlots[4] = Slots.allSlots[4];
+            EquippedSlotImages[4].sprite = SpriteSlots[currSlots[4].ID];
         }
     }
 }

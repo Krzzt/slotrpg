@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
 
     public int AttackDamage;
     public int HealAmount;
+    public int Defense;
 
     public UnitHealth EnemyHealth = new UnitHealth(5, 5);
     public int IncreaseMaxHealth;
@@ -74,6 +75,11 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int amount, string type)
     {
+        amount -= Defense;
+        if (amount <= 0)
+        {
+            amount = 1;
+        }
         EnemyHealth.DamageUnit(amount);
         DamagePopup.Create(amount, type, Player.DamagePopupTransform.position);
         Debug.Log("HP: " + EnemyHealth._currentHealth);
