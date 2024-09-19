@@ -1,1 +1,1 @@
-{"bossesDefeated":[false,false,false,false,false,false,false,false,false,false]}
+{"bossesDefeated":[true,false,false,false,false,false,false,false,false,false]}

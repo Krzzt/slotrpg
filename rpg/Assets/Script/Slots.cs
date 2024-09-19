@@ -25,6 +25,7 @@ public static class Slots {
     public static void UnlockSlot(int id)
     {
         allSlots[id].Unlocked = true;
+        Debug.Log("Slot with ID " + allSlots[id] + " Unlocked");
     }
 
 

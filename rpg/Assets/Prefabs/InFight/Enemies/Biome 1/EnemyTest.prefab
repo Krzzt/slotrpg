@@ -137,12 +137,16 @@ MonoBehaviour:
   expValue: 30
   AttackDamage: 3
   HealAmount: 0
+  Defense: 2
   IncreaseMaxHealth: 10
   usingAI: {fileID: 11400000, guid: 284b49ff014d43a4f8134cad23ebde67, type: 2}
   DamagePopupTransform: {fileID: 840044641425285627, guid: 62c883c74eb9039479bee1be88af1105, type: 3}
   EnemyPopUpTransform: {fileID: 0}
   FightOptionBool: 0000
   ConditionSeverity: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+  bossImmunities: 0
+  EnemyID: 0
+  StunActive: 0
 --- !u!70 &4912134647320655106
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

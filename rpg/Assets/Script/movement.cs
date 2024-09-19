@@ -56,6 +56,7 @@ public class movement : MonoBehaviour
             invIsActive = false;
             InvMenu.SetActive(false);
             inventoryScript.AutoFill();
+            inventoryScript.closeMenu();
         }
         
         if (Input.GetKeyDown("e"))

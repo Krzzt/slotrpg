@@ -45,6 +45,8 @@ public class SlotInventory : MonoBehaviour
     {
         UniPlayerObject = GameObject.FindWithTag("UniPlayer");
         UniSlotsScript = UniPlayerObject.GetComponent<UniversalSlots>();
+        UnlockedSlots = new bool[Slots.allSlots.Count];
+        IDsOfUnlockedSlots = new int[Slots.allSlots.Count];
 
     }
     void Start()
@@ -65,6 +67,10 @@ public class SlotInventory : MonoBehaviour
         AutoFill();
     }
 
+    public void closeMenu()
+    {
+        SlotArray.SlotIDs = currSlotIDs;
+    }
 
     // Update is called once per frame
     void Update()
@@ -170,10 +176,10 @@ public class SlotInventory : MonoBehaviour
         for (int i = 0; i < UnlockedSlots.Length; i++)
         {
             UnlockedSlots[i] = Slots.allSlots[i].Unlocked;
-            
             if (UnlockedSlots[i])
             {
                 UnlockedSlotsCount++;
+                
             }
 
         }
@@ -184,7 +190,7 @@ public class SlotInventory : MonoBehaviour
         }
         Debug.Log(UnlockedSlotsCount);
         //Setting the Sprites to the Images. The SaveID makes sure that every sprite is different
-        for (int i = 0; i < UnlockedImageSlotObjects.Length; i++)
+        for (int i = 0; i < UnlockedSlotsCount; i++) 
         {
             for (int a = 0; a < Slots.allSlots.Count; a++)
             {
@@ -199,7 +205,7 @@ public class SlotInventory : MonoBehaviour
             }
 
         }
-
+        //man
     }
 
 

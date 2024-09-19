@@ -28,17 +28,17 @@ public class   EncounterStart : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         frames++;
    
-        if (frames % 20 == 0)
+        if (frames % 10 == 0)
         {
             
 
             if (isMoving())
             {
-               if (Random.Range(0, 200) == 0)
+               if (Random.Range(0, 50) == 0)
                 {
                     if (GameManagerScript.currentBiome.name != "The no Fight Biomes")
                     {

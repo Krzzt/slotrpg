@@ -69,6 +69,9 @@ public class PlayerInEncounter : MonoBehaviour
     public TMP_Text[] effectTexts = new TMP_Text[3];
 
 
+    public Sprite setBlack;
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -85,7 +88,7 @@ public class PlayerInEncounter : MonoBehaviour
         SaveSystem.checkIfExists("/saveSlotIcons.txt");
         SaveSystem.LoadSlotIcons(slots);
 
-        for (int i = 0; i < slots.SlotIDs.Length; i++)
+        for (int i = 0; i < Slots.allSlots.Count; i++)
         {
             equipSlots[i] = Slots.allSlots[slots.SlotIDs[i]];
         }
@@ -137,6 +140,9 @@ public class PlayerInEncounter : MonoBehaviour
         rolledSlots[0] = equipSlots[slot0];
         rolledSlots[1] = equipSlots[slot1];
         rolledSlots[2] = equipSlots[slot2];
+        Debug.Log("ID FOR 0: " + rolledSlots[0].ID);
+        Debug.Log("ID FOR 1: " + rolledSlots[1].ID);
+        Debug.Log("ID FOR 2: " + rolledSlots[2].ID);
         Slot0.sprite = SlotImages[rolledSlots[0].ID];
         yield return new WaitForSeconds(0.3f);
         Slot1.sprite = SlotImages[rolledSlots[1].ID];
@@ -154,7 +160,7 @@ public class PlayerInEncounter : MonoBehaviour
     public void ApplyEffects()
     {
         List<SlotSkill> rolledSlotList = rolledSlots.ToList<SlotSkill>();
-
+        IDCount = new int[Slots.allSlots.Count];
         for (int i = 0; i < rolledSlotList.Count; i++)
         {
             IDCount[rolledSlotList[i].ID]++;
@@ -236,12 +242,12 @@ public class PlayerInEncounter : MonoBehaviour
 
     public void ClearEverything()
     {
-        Slot0.sprite = null;
-        Slot1.sprite = null;
-        Slot2.sprite = null;
-        effectTexts[0].text = "";
-        effectTexts[1].text = "";
-        effectTexts[2].text = "";
+        Slot0.sprite = setBlack;
+        Slot1.sprite = setBlack;
+        Slot2.sprite = setBlack;
+        effectTexts[0].SetText("");
+        effectTexts[1].SetText("");
+        effectTexts[2].SetText("");
     }
 
     public void SetEffectTexts()
@@ -264,6 +270,7 @@ public class PlayerInEncounter : MonoBehaviour
                 effectTexts[index].SetText(Slots.allSlots[i].Desc3);
                 index++;
             }
+            
         }
     }
     public void AttackMode()
@@ -281,7 +288,7 @@ public class PlayerInEncounter : MonoBehaviour
     public void DamagePlayer(int amount,string type)
     {
 
-        amount -= player.Defense;
+        amount -= (int)(player.Defense * InFightDefenseBooster);
         if (amount <= 0)
         {
             amount = 1;

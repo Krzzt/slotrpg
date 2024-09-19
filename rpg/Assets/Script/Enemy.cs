@@ -39,6 +39,8 @@ public class Enemy : MonoBehaviour
     
     public BossList checkList = new BossList { bossesDefeated = new bool[10] };
 
+    public bool StunActive;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -82,7 +84,7 @@ public class Enemy : MonoBehaviour
         }
         EnemyHealth.DamageUnit(amount);
         DamagePopup.Create(amount, type, Player.DamagePopupTransform.position);
-        Debug.Log("HP: " + EnemyHealth._currentHealth);
+        
         if (EnemyHealth._currentHealth <= 0)
         {
             Dead();
@@ -91,21 +93,39 @@ public class Enemy : MonoBehaviour
 
     public void TurnStart()
     {
-
-        int random = Random.Range(0, FightOptionBool.Length);
-        while (!FightOptionBool[random])
+        if (ConditionSeverity[1] > 0)
         {
-            random = Random.Range(0, FightOptionBool.Length);
+            Debug.Log("StunActive with Severity: " + ConditionSeverity[1]);
+            StunActive = true;
+            ConditionSeverity[1]--;
         }
-        if (FightOptionBool[random])
+        else
         {
-
-            switch (random)
+            StunActive = false;
+            Debug.Log("Stun should now be over!");
+        }
+        if (!StunActive)
+        {
+            int random = Random.Range(0, FightOptionBool.Length);
+            while (!FightOptionBool[random])
             {
-                case 0: Attack(); EndTurn(); break;
-                case 1: Heal(); EndTurn(); break;
+                random = Random.Range(0, FightOptionBool.Length);
+            }
+            if (FightOptionBool[random])
+            {
+
+                switch (random)
+                {
+                    case 0: Attack(); EndTurn(); break;
+                    case 1: Heal(); EndTurn(); break;
+                }
             }
         }
+        else
+        {
+            EndTurn();
+        }
+
 
     }
 
@@ -243,7 +263,14 @@ public class Enemy : MonoBehaviour
         {
             case 0:
                 //Poison
+                yield return new WaitForSeconds(0.2f);
                 PoisonDMG(ConditionSeverity[ID]);
+                yield return new WaitForSeconds(0.2f);
+                break;
+                case 1:
+                //Stun
+                yield return new WaitForSeconds(0.2f);
+                StunEffect(ConditionSeverity[ID]);
                 yield return new WaitForSeconds(0.2f);
                 break;
 
@@ -256,7 +283,12 @@ public class Enemy : MonoBehaviour
         {
             checkList.bossesDefeated[EnemyID-50] = true;
         }
-        SaveSystem.SaveBossList(checkList);
+        if (bossImmunities)
+        {
+            SaveSystem.SaveBossList(checkList);
+
+        }
+
 
         FightManager.checkForEndFight();
 
@@ -288,6 +320,14 @@ public class Enemy : MonoBehaviour
             TakeDamage(dmgToDeal, "Poison");
         }
 
+    }
+
+    public void StunEffect(int Severity)
+    {
+        if (!bossImmunities)
+        {
+            ConditionSeverity[1] = Severity;
+        }
     }
 
 
