@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1148901703342570698}
   - component: {fileID: 4242911726597651664}
   m_Layer: 0
-  m_Name: HealerEnemy
+  m_Name: Enemy1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   FightManager: {fileID: 0}
   expValue: 30
   AttackDamage: 0
-  HealAmount: 1
+  HealAmount: 2
   Defense: 1
   IncreaseMaxHealth: 10
   usingAI: {fileID: 11400000, guid: 0d37b1385b1181f4eb035e229ccc3e8f, type: 2}

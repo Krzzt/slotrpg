@@ -16,3 +16,5 @@ MonoBehaviour:
   EnemyTypesInBiome:
   - {fileID: 4011848319347203245, guid: ef68b1e036bbe5c4ebef6825d776eebf, type: 3}
   - {fileID: 3578224588666122699, guid: 0767054a69b482f41aa49e8d9671bec5, type: 3}
+  - {fileID: 4011848319347203245, guid: 621100b4f8078ea42b66b6d7d9c9f0a7, type: 3}
+  - {fileID: 4011848319347203245, guid: 851ec894a504c574ba0110ad96ba7f65, type: 3}

@@ -204,7 +204,7 @@ public class FightManager : MonoBehaviour
 
     public void EndFight()
     {
-       
+       Player.Buttons.SetActive(false);
         EndPanel.SetActive(true);
         ExpTextEndOfFight.SetText("Exp: " + totalFightExp);
         fightIsOver = true;

@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2037646352316024531}
   - component: {fileID: 4912134647320655106}
   m_Layer: 0
-  m_Name: BossTest
+  m_Name: Enemy3
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.64, y: -2.53, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4201453104911272248}
@@ -108,7 +108,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.5471698, g: 0.2446778, b: 0.2446778, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -134,18 +134,18 @@ MonoBehaviour:
   Player: {fileID: 2649455229498363157, guid: f724c259bf070fd49a7c6a5b6ee7ba9a, type: 3}
   FightManagerObject: {fileID: 0}
   FightManager: {fileID: 0}
-  expValue: 120
-  AttackDamage: 7
-  HealAmount: 5
-  Defense: 0
-  IncreaseMaxHealth: 100
-  usingAI: {fileID: 11400000, guid: 729ef9505fd41c349b20bc32051dedfd, type: 2}
+  expValue: 15
+  AttackDamage: 2
+  HealAmount: 0
+  Defense: 3
+  IncreaseMaxHealth: 25
+  usingAI: {fileID: 11400000, guid: 284b49ff014d43a4f8134cad23ebde67, type: 2}
   DamagePopupTransform: {fileID: 840044641425285627, guid: 62c883c74eb9039479bee1be88af1105, type: 3}
   EnemyPopUpTransform: {fileID: 0}
   FightOptionBool: 0000
   ConditionSeverity: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
-  bossImmunities: 1
-  EnemyID: 50
+  bossImmunities: 0
+  EnemyID: 0
   StunActive: 0
 --- !u!70 &4912134647320655106
 CapsuleCollider2D:

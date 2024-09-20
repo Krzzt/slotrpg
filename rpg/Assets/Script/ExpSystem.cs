@@ -28,7 +28,7 @@ public class ExpSystem : MonoBehaviour
     {
         PlayerInEncounter.player.exp += amount;
 
-        if (PlayerInEncounter.player.exp >= expToLvlUp)
+        if (PlayerInEncounter.player.exp >= PlayerInEncounter.player.expToNextLevel)
         {
             LevelUp();
 

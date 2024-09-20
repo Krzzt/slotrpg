@@ -182,17 +182,17 @@ public class PlayerInEncounter : MonoBehaviour
         //Heart
         if (IDCount[1] == 1)
         {
-            PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.05f));
+            PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.03f));
             PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
         }
         else if (IDCount[1] == 2)
         {
-            PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.10f));
+            PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.08f));
             PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
         }
         else if (IDCount[1] == 3)
         {
-            PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.20f));
+            PlayerHealth.HealUnit((int)(PlayerHealth._currentMaxHealth * 0.15f));
             PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
         }
         //Poison
@@ -214,15 +214,15 @@ public class PlayerInEncounter : MonoBehaviour
         //Shield
         if (IDCount[3] == 1)
         {
-            InFightDefenseBooster += 0.1f;
+            InFightDefenseBooster += 0.05f;
         }
         else if (IDCount[3] == 2)
         {
-            InFightDefenseBooster += 0.2f;
+            InFightDefenseBooster += 0.1f;
         }
         else if (IDCount[3] == 3)
         {
-            InFightDefenseBooster += 0.7f;
+            InFightDefenseBooster += 0.4f;
         }
         //Stun
         if (IDCount[4] == 1)
@@ -311,8 +311,12 @@ public class PlayerInEncounter : MonoBehaviour
         player.AttackDamage = (int)(player.AttackDamage * 1.2f);
         player.MaxHealth = (int)(player.MaxHealth * 1.1f);
         player.currentHealth = (int)(player.currentHealth + ((int)(player.MaxHealth * 0.1f)));
-        player.Defense++;
-        player.Initiative += 3;
+        if (player.level % 2 == 0)
+        {
+            player.Defense++;
+        }
+
+        player.Initiative += 2;
         
 
     }

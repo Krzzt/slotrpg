@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2037646352316024531}
   - component: {fileID: 4912134647320655106}
   m_Layer: 0
-  m_Name: EnemyTest
+  m_Name: Enemy0
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
   Player: {fileID: 2649455229498363157, guid: f724c259bf070fd49a7c6a5b6ee7ba9a, type: 3}
   FightManagerObject: {fileID: 0}
   FightManager: {fileID: 0}
-  expValue: 30
+  expValue: 10
   AttackDamage: 3
   HealAmount: 0
   Defense: 2
