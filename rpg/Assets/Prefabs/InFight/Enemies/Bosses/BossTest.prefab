@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f786787fdfcce4593534411fc7da12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 1
   PlayerObject: {fileID: 7482694609442918007, guid: f724c259bf070fd49a7c6a5b6ee7ba9a, type: 3}
   Player: {fileID: 2649455229498363157, guid: f724c259bf070fd49a7c6a5b6ee7ba9a, type: 3}
   FightManagerObject: {fileID: 0}

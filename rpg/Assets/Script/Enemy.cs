@@ -7,6 +7,7 @@ using System.Linq;
 
 public class Enemy : MonoBehaviour
 {
+    public int level;
 
     public GameObject PlayerObject;
     public PlayerInEncounter Player;
@@ -42,9 +43,18 @@ public class Enemy : MonoBehaviour
     public bool StunActive;
 
 
+
+
     // Start is called before the first frame update
     void Awake()
     {
+        expValue *= level;
+        AttackDamage *= level;
+        IncreaseMaxHealth *= level;
+        HealAmount *= level;
+        Defense *= level;
+        Initiative *= level;
+
         EnemyHealth.addmaxHealth(IncreaseMaxHealth);
         EnemyHealth._currentHealth = EnemyHealth._currentMaxHealth;
         Initiative = Random.Range(0, 50);
@@ -62,6 +72,7 @@ public class Enemy : MonoBehaviour
             SaveSystem.checkIfExists("/bossList.txt");
             SaveSystem.LoadBossList(checkList);
         }
+
 
     }
 
@@ -95,14 +106,14 @@ public class Enemy : MonoBehaviour
     {
         if (ConditionSeverity[1] > 0)
         {
-            Debug.Log("StunActive with Severity: " + ConditionSeverity[1]);
+  
             StunActive = true;
             ConditionSeverity[1]--;
         }
         else
         {
             StunActive = false;
-            Debug.Log("Stun should now be over!");
+            
         }
         if (!StunActive)
         {

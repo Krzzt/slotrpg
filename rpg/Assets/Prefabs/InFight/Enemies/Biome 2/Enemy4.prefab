@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2037646352316024531}
   - component: {fileID: 4912134647320655106}
   m_Layer: 0
-  m_Name: Enemy3
+  m_Name: Enemy4
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +108,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.5471698, g: 0.2446778, b: 0.2446778, a: 1}
+  m_Color: {r: 0.24590638, g: 0.2443574, b: 0.9811321, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -135,18 +135,18 @@ MonoBehaviour:
   Player: {fileID: 2649455229498363157, guid: f724c259bf070fd49a7c6a5b6ee7ba9a, type: 3}
   FightManagerObject: {fileID: 0}
   FightManager: {fileID: 0}
-  expValue: 15
-  AttackDamage: 2
+  expValue: 30
+  AttackDamage: 7
   HealAmount: 0
-  Defense: 3
-  IncreaseMaxHealth: 25
+  Defense: 2
+  IncreaseMaxHealth: 20
   usingAI: {fileID: 11400000, guid: 284b49ff014d43a4f8134cad23ebde67, type: 2}
   DamagePopupTransform: {fileID: 840044641425285627, guid: 62c883c74eb9039479bee1be88af1105, type: 3}
   EnemyPopUpTransform: {fileID: 0}
   FightOptionBool: 0000
   ConditionSeverity: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   bossImmunities: 0
-  EnemyID: 3
+  EnemyID: 4
   StunActive: 0
 --- !u!70 &4912134647320655106
 CapsuleCollider2D:

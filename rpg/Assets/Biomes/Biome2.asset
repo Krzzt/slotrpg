@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2eeccb168a334448a2de6893d610acd, type: 3}
+  m_Name: Biome2
+  m_EditorClassIdentifier: 
+  Name: Biome2
+  EnemyTypesInBiome:
+  - {fileID: 4011848319347203245, guid: 631a0953910c8f0458e2a8163f8b074b, type: 3}
+  - {fileID: 4011848319347203245, guid: 1007b2905b0779247a3b3b2746c88860, type: 3}
+  - {fileID: 4011848319347203245, guid: da935a8d1e29b2045b9dd2457ca7ef1c, type: 3}

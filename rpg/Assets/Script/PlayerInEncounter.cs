@@ -71,10 +71,14 @@ public class PlayerInEncounter : MonoBehaviour
 
     public Sprite setBlack;
 
+    public GameObject FightManagerObject;
+    public FightManager FightManagerScript;
+
 
     // Start is called before the first frame update
     void Awake()
     {
+
         SaveSystem.checkIfExists("/Player.txt");
         SaveSystem.LoadPlayer(player);
         PlayerHealth.addmaxHealth(player.MaxHealth);
@@ -102,6 +106,9 @@ public class PlayerInEncounter : MonoBehaviour
     }
     private void Start()
     {
+
+        FightManagerObject = GameObject.FindWithTag("FightManager");
+        FightManagerScript = FightManagerObject.GetComponent<FightManager>();
         PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
     }
 
@@ -115,6 +122,7 @@ public class PlayerInEncounter : MonoBehaviour
     {
         nextHitEffects = new int[10];
         DamageToDeal = player.AttackDamage;
+        FightManagerScript.checkForEndFight();
         Buttons.SetActive(true);
 
     }
