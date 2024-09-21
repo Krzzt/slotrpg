@@ -6,7 +6,8 @@ public static class StatusEffects
 {
     public static List<Condition> Conditions = new List<Condition>
     {
-        new Condition{Name = "Poison" , ID = 0}
+        new Condition{Name = "Poison" , ID = 0},
+        new Condition{Name = "Stun", ID = 1}
     };
 }
 

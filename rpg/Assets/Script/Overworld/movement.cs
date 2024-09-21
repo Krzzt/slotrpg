@@ -50,12 +50,14 @@ public class movement : MonoBehaviour
             invIsActive = true;
             InvMenu.SetActive(true);
             inventoryScript.OpenInvImages();
+            inventoryScript.AutoFill();
         }
         else if (Input.GetKeyDown("i") && invIsActive)
         {
             invIsActive = false;
             InvMenu.SetActive(false);
             inventoryScript.AutoFill();
+            inventoryScript.saveSlots();
             inventoryScript.closeMenu();
         }
         
@@ -63,6 +65,7 @@ public class movement : MonoBehaviour
         {
             if (canPickUpSlotObject)
             {
+                Debug.Log("Tag is: " + SlotToPickUp.tag);
                 PickUpSlotItem(SlotToPickUp);
             }
         } 
@@ -70,6 +73,18 @@ public class movement : MonoBehaviour
 
 
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "PickUp")
+        {
+            Debug.Log("ENTERED");
+            SlotToPickUp = collision.gameObject;
+            
+            PickUpTextObject.SetActive(true);
+            canPickUpSlotObject = true;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -93,6 +108,7 @@ public class movement : MonoBehaviour
             canPickUpSlotObject = false;
             PickUpTextObject.SetActive(false);
             SlotToPickUp = null;
+            Debug.Log("EXITED");
         }
     }
 
@@ -117,6 +133,7 @@ public class movement : MonoBehaviour
 
     void PickUpSlotItem(GameObject ObjectToPickUp)
     {
+        Debug.Log("Object has tag: " + ObjectToPickUp.tag);
         PickUpItemLogic Item = ObjectToPickUp.GetComponent<PickUpItemLogic>();
         Item.PickUpSlot();
     }

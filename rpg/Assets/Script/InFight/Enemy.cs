@@ -170,7 +170,7 @@ public class Enemy : MonoBehaviour
     public void Attack()
     {
         float damageDealt = ((float)AttackDamage * (float)((float)Random.Range(900, 1201) / 1000f));
-        Player.DamagePlayer((int)damageDealt, "Damage");
+        Player.DamagePlayer((int)damageDealt, "Damage", gameObject);
         if (Player.PlayerHealth._currentHealth <= 0)
         {
             Destroy(PlayerObject);

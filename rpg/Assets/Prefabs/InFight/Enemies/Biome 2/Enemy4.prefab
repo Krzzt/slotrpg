@@ -136,10 +136,10 @@ MonoBehaviour:
   FightManagerObject: {fileID: 0}
   FightManager: {fileID: 0}
   expValue: 30
-  AttackDamage: 7
+  AttackDamage: 70
   HealAmount: 0
-  Defense: 2
-  IncreaseMaxHealth: 20
+  Defense: 20
+  IncreaseMaxHealth: 200
   usingAI: {fileID: 11400000, guid: 284b49ff014d43a4f8134cad23ebde67, type: 2}
   DamagePopupTransform: {fileID: 840044641425285627, guid: 62c883c74eb9039479bee1be88af1105, type: 3}
   EnemyPopUpTransform: {fileID: 0}

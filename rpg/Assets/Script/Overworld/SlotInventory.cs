@@ -29,6 +29,7 @@ public class SlotInventory : MonoBehaviour
 
     public SlotArray SlotArray = new SlotArray();
 
+    public UnlockedSlots slotsToLoad = new UnlockedSlots();
 
     public GameObject UniPlayerObject;
     public UniversalSlots UniSlotsScript;
@@ -48,6 +49,22 @@ public class SlotInventory : MonoBehaviour
         UnlockedSlots = new bool[Slots.allSlots.Count];
         IDsOfUnlockedSlots = new int[Slots.allSlots.Count];
 
+
+        slotsToLoad.unlockedSlots = new bool[Slots.allSlots.Count];
+        SaveSystem.checkIfExists("/UnlockedSlots.txt");
+        SaveSystem.LoadUnlockedSlots(slotsToLoad);
+        if (!slotsToLoad.unlockedSlots[0])
+        {
+            slotsToLoad.unlockedSlots = new bool[Slots.allSlots.Count];
+            slotsToLoad.unlockedSlots[0] = true;
+            slotsToLoad.unlockedSlots[1] = true;
+            slotsToLoad.unlockedSlots[2] = true;
+            slotsToLoad.unlockedSlots[3] = true;
+            slotsToLoad.unlockedSlots[4] = true;
+        } 
+        UnlockedSlots = slotsToLoad.unlockedSlots;
+        currSlotIDs = new int[5];
+        currSlots = new SlotSkill[5];
     }
     void Start()
     {
@@ -91,6 +108,7 @@ public class SlotInventory : MonoBehaviour
             SlotArray.SlotIDs = currSlotIDs;
             currSlots[0] = Slots.allSlots[SelectedID];
             EquippedSlotImages[0].sprite = SpriteSlots[currSlots[0].ID];
+            saveSlots();
 
         }
 
@@ -103,6 +121,7 @@ public class SlotInventory : MonoBehaviour
             SlotArray.SlotIDs = currSlotIDs;
             currSlots[1] = Slots.allSlots[SelectedID];
             EquippedSlotImages[1].sprite = SpriteSlots[currSlots[1].ID];
+            saveSlots();
         }
 
     }
@@ -114,6 +133,7 @@ public class SlotInventory : MonoBehaviour
             SlotArray.SlotIDs = currSlotIDs;
             currSlots[2] = Slots.allSlots[SelectedID];
             EquippedSlotImages[2].sprite = SpriteSlots[currSlots[2].ID];
+            saveSlots();
         }
 
     }
@@ -124,6 +144,7 @@ public class SlotInventory : MonoBehaviour
             SlotArray.SlotIDs = currSlotIDs;
             currSlots[3] = Slots.allSlots[SelectedID];
             EquippedSlotImages[3].sprite = SpriteSlots[currSlots[3].ID];
+            saveSlots();
         }
 
     }
@@ -134,6 +155,7 @@ public class SlotInventory : MonoBehaviour
             SlotArray.SlotIDs = currSlotIDs;
             currSlots[4] = Slots.allSlots[SelectedID];
             EquippedSlotImages[4].sprite = SpriteSlots[currSlots[4].ID];
+            saveSlots();
         }
 
     }
@@ -143,14 +165,21 @@ public class SlotInventory : MonoBehaviour
         for (int i = 0; i < currSlots.Length; i++)
         {
             currSlotIDs[i] = currSlots[i].ID;
+            
         }
 
         SlotArray.SlotIDs = currSlotIDs;
-        Debug.Log("TEST TEXT " + JsonUtility.ToJson(Slots.allSlots[0]));
-        SaveSystem.checkIfExists("saveSlotIcons.txt");
+        SaveSystem.checkIfExists("/saveSlotIcons.txt");
         SaveSystem.SaveSlotIcons(SlotArray);
     }
 
+    public void SetImages()
+    {
+        for (int i = 0; i < currSlots.Length; i++)
+        {
+            EquippedSlotImages[i].sprite = SpriteSlots[currSlots[i].ID];
+        }
+    }
 
     public void SelectID(int imageID)
     {
@@ -175,7 +204,7 @@ public class SlotInventory : MonoBehaviour
         //Counting the Unlocked Slots
         for (int i = 0; i < UnlockedSlots.Length; i++)
         {
-            UnlockedSlots[i] = Slots.allSlots[i].Unlocked;
+            
             if (UnlockedSlots[i])
             {
                 UnlockedSlotsCount++;
@@ -188,13 +217,12 @@ public class SlotInventory : MonoBehaviour
         {
             UnlockedImageSlotObjects[i].SetActive(true);
         }
-        Debug.Log(UnlockedSlotsCount);
         //Setting the Sprites to the Images. The SaveID makes sure that every sprite is different
         for (int i = 0; i < UnlockedSlotsCount; i++) 
         {
             for (int a = 0; a < Slots.allSlots.Count; a++)
             {
-                if (Slots.allSlots[a].Unlocked && Slots.allSlots[a].ID > SaveID)
+                if (UnlockedSlots[a] && Slots.allSlots[a].ID > SaveID)
                 {
                     UnlockedSlotImages[i].sprite = UniSlotsScript.SlotSprites[a];
                     SaveID = Slots.allSlots[a].ID;
@@ -244,5 +272,7 @@ public class SlotInventory : MonoBehaviour
             currSlots[4] = Slots.allSlots[4];
             EquippedSlotImages[4].sprite = SpriteSlots[currSlots[4].ID];
         }
+        SetImages();
+        saveSlots();
     }
 }

@@ -14,6 +14,8 @@ public class   EncounterStart : MonoBehaviour
 
     public positionSave savePos = new positionSave();
 
+    public SlotInventory inventory;
+
 
     private void Awake()
     {
@@ -78,7 +80,7 @@ public class   EncounterStart : MonoBehaviour
         savePos.position = gameObject.transform.position;
         SaveSystem.checkIfExists("/savePos.txt");
         SaveSystem.SavePos(savePos);
-        Debug.Log("postosave" + savePos.position.ToString());
+
         StartCoroutine(WaitandLoad());
         SceneManager.LoadSceneAsync("InEncounter");
     }

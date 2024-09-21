@@ -85,23 +85,27 @@ public class DamagePopup : MonoBehaviour
        
     }
 
-    public static DamagePopup CreateLvlUp(Vector3 position)
+
+
+
+
+    public static DamagePopup CreateText(string Text, Vector3 position)
     {
-        Transform LvlPopupTransform = Instantiate(GameAssets.i.pfDamagePopup, position, Quaternion.identity);
-        DamagePopup LevelUpPopup = LvlPopupTransform.GetComponent<DamagePopup>();
-        LevelUpPopup.SetupLvlUp(position);
-        return LevelUpPopup;
+        Transform transform = Instantiate(GameAssets.i.pfDamagePopup, position, Quaternion.identity);
+        DamagePopup textToCreate = transform.GetComponent<DamagePopup>();
+        textToCreate.SetupText(Text, position);
+        return textToCreate;
     }
 
-    public void SetupLvlUp(Vector3 position)
+
+    public void SetupText(string Text, Vector3 position)
     {
-        textmesh.SetText("Level Up!");
+        textmesh.SetText(Text);
         disappearTimer = DISAPPEAR_TIMER_MAX;
-            textmesh.fontSize = 8;
-            textColor = UtilsClass.GetColorFromString("ffffff");
+        textmesh.fontSize = 8; 
+        textColor = UtilsClass.GetColorFromString("ffffff");
         textmesh.color = textColor;
 
-        moveVector = new Vector3(0, 6);
-
+        moveVector = new Vector3(0,6);
     }
 }

@@ -48,18 +48,23 @@ public class PlayerInEncounter : MonoBehaviour
 
     public int[] nextHitEffects = new int[10];
 
+    public int[] playerBuffs = new int[10];
+
     public float InFightDefenseBooster;
     public float InFightDamageBooster;
+
+    public float DamageReflection;
+    public float HPStealAmount;
 
     public Player player = new Player
     {
         level = 1,
         exp = 0,
         expToNextLevel = 100,
-        AttackDamage = 5,
-        MaxHealth = 50,
-        currentHealth = 50,
-        Defense = 1,
+        AttackDamage = 50,
+        MaxHealth = 500,
+        currentHealth = 500,
+        Defense = 10,
         Initiative = 8,
 
     };
@@ -91,8 +96,8 @@ public class PlayerInEncounter : MonoBehaviour
         slots = new SlotArray();
         SaveSystem.checkIfExists("/saveSlotIcons.txt");
         SaveSystem.LoadSlotIcons(slots);
-
-        for (int i = 0; i < Slots.allSlots.Count; i++)
+        equipSlots = new SlotSkill[5];
+        for (int i = 0; i < equipSlots.Length; i++)
         {
             equipSlots[i] = Slots.allSlots[slots.SlotIDs[i]];
         }
@@ -120,8 +125,16 @@ public class PlayerInEncounter : MonoBehaviour
 
     public void TurnStart()
     {
+        //Setting everything back to what it should be
         nextHitEffects = new int[10];
         DamageToDeal = player.AttackDamage;
+        DamageReflection = 0;
+        HPStealAmount = 0;
+
+
+
+
+
         FightManagerScript.checkForEndFight();
         Buttons.SetActive(true);
 
@@ -148,9 +161,6 @@ public class PlayerInEncounter : MonoBehaviour
         rolledSlots[0] = equipSlots[slot0];
         rolledSlots[1] = equipSlots[slot1];
         rolledSlots[2] = equipSlots[slot2];
-        Debug.Log("ID FOR 0: " + rolledSlots[0].ID);
-        Debug.Log("ID FOR 1: " + rolledSlots[1].ID);
-        Debug.Log("ID FOR 2: " + rolledSlots[2].ID);
         Slot0.sprite = SlotImages[rolledSlots[0].ID];
         yield return new WaitForSeconds(0.3f);
         Slot1.sprite = SlotImages[rolledSlots[1].ID];
@@ -230,7 +240,8 @@ public class PlayerInEncounter : MonoBehaviour
         }
         else if (IDCount[3] == 3)
         {
-            InFightDefenseBooster += 0.4f;
+            InFightDefenseBooster += 0.2f;
+            DamageReflection += 0.1f;
         }
         //Stun
         if (IDCount[4] == 1)
@@ -244,6 +255,20 @@ public class PlayerInEncounter : MonoBehaviour
         else if (IDCount[4] == 3)
         {
             nextHitEffects[1] = 3;
+        }
+        //Shadow
+        if (IDCount[5] == 1)
+        {
+            HPStealAmount = 0.05f;
+        }
+        else if (IDCount[5] == 2)
+        {
+            HPStealAmount = 0.1f;
+        }
+        else if (IDCount[5] == 3)
+        {
+            HPStealAmount = 0.2f;
+            playerBuffs[0] = 1;
         }
 
     }
@@ -293,18 +318,42 @@ public class PlayerInEncounter : MonoBehaviour
     public int GetHealth() { return PlayerHealth._currentHealth; }
 
 
-    public void DamagePlayer(int amount,string type)
+    public void DamagePlayer(int amount,string type, GameObject Attacker)
     {
-
-        amount -= (int)(player.Defense * InFightDefenseBooster);
-        if (amount <= 0)
+        if (playerBuffs[0] <= 0)
         {
-            amount = 1;
+            if (DamageReflection > 0)
+            {
+                Enemy currAttacker = Attacker.GetComponent<Enemy>();
+                int damageToGive = (int)(amount * DamageReflection);
+                if (damageToGive <= 0)
+                {
+                    damageToGive = 1;
+                }
+                currAttacker.TakeDamage(damageToGive, "Damage");
+            }
+
+            amount -= (int)(player.Defense * InFightDefenseBooster);
+            if (amount <= 0)
+            {
+                amount = 1;
+            }
+            PlayerHealth.DamageUnit(amount);
+            DamagePopup.Create(amount, type, playerpopupTransform.position);
+            PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
         }
-        PlayerHealth.DamageUnit(amount);
-        DamagePopup.Create(amount, type, playerpopupTransform.position);
-        PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
+        else
+        {
+            Dodge();
+            playerBuffs[0]--;
+        }
+    
         
+    }
+
+    public void Dodge()
+    {
+        DamagePopup.CreateText("Dodged", playerpopupTransform.position);
     }
 
     public void LevelUp()
@@ -312,7 +361,7 @@ public class PlayerInEncounter : MonoBehaviour
         player.exp -= player.expToNextLevel;
         player.level++;
         player.expToNextLevel = (int)(player.expToNextLevel * 1.5f);
-        DamagePopup.CreateLvlUp(playerpopupTransform.position);
+        DamagePopup.CreateText("Level Up!",playerpopupTransform.position);
 
 
 
