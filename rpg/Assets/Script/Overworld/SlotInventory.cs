@@ -51,7 +51,6 @@ public class SlotInventory : MonoBehaviour
 
 
         slotsToLoad.unlockedSlots = new bool[Slots.allSlots.Count];
-        SaveSystem.checkIfExists("/UnlockedSlots.txt");
         SaveSystem.LoadUnlockedSlots(slotsToLoad);
         if (!slotsToLoad.unlockedSlots[0])
         {
@@ -61,10 +60,18 @@ public class SlotInventory : MonoBehaviour
             slotsToLoad.unlockedSlots[2] = true;
             slotsToLoad.unlockedSlots[3] = true;
             slotsToLoad.unlockedSlots[4] = true;
-        } 
+        }
+    
+        SaveSystem.LoadSlotIcons(SlotArray);
         UnlockedSlots = slotsToLoad.unlockedSlots;
         currSlotIDs = new int[5];
         currSlots = new SlotSkill[5];
+        for (int i = 0; i < SlotArray.SlotIDs.Length; i++)
+        {
+            Debug.Log("Saved IDs: " + SlotArray.SlotIDs[i]);
+            currSlots[i] = Slots.allSlots[SlotArray.SlotIDs[i]];
+        }
+       
     }
     void Start()
     {
@@ -87,6 +94,7 @@ public class SlotInventory : MonoBehaviour
     public void closeMenu()
     {
         SlotArray.SlotIDs = currSlotIDs;
+        saveSlots();
     }
 
     // Update is called once per frame
@@ -105,10 +113,10 @@ public class SlotInventory : MonoBehaviour
     
         if (SelectedID != currSlots[0].ID && SelectedID != currSlots[1].ID && SelectedID != currSlots[2].ID && SelectedID != currSlots[3].ID && SelectedID != currSlots[4].ID)
         {
-            SlotArray.SlotIDs = currSlotIDs;
+         
             currSlots[0] = Slots.allSlots[SelectedID];
             EquippedSlotImages[0].sprite = SpriteSlots[currSlots[0].ID];
-            saveSlots();
+           
 
         }
 
@@ -118,10 +126,10 @@ public class SlotInventory : MonoBehaviour
     {
         if (SelectedID != currSlots[0].ID && SelectedID != currSlots[1].ID && SelectedID != currSlots[2].ID && SelectedID != currSlots[3].ID && SelectedID != currSlots[4].ID)
         {
-            SlotArray.SlotIDs = currSlotIDs;
+            
             currSlots[1] = Slots.allSlots[SelectedID];
             EquippedSlotImages[1].sprite = SpriteSlots[currSlots[1].ID];
-            saveSlots();
+          
         }
 
     }
@@ -130,10 +138,10 @@ public class SlotInventory : MonoBehaviour
     {
         if (SelectedID != currSlots[0].ID && SelectedID != currSlots[1].ID && SelectedID != currSlots[2].ID && SelectedID != currSlots[3].ID && SelectedID != currSlots[4].ID)
         {
-            SlotArray.SlotIDs = currSlotIDs;
+           
             currSlots[2] = Slots.allSlots[SelectedID];
             EquippedSlotImages[2].sprite = SpriteSlots[currSlots[2].ID];
-            saveSlots();
+            
         }
 
     }
@@ -141,10 +149,10 @@ public class SlotInventory : MonoBehaviour
     {
         if (SelectedID != currSlots[0].ID && SelectedID != currSlots[1].ID && SelectedID != currSlots[2].ID && SelectedID != currSlots[3].ID && SelectedID != currSlots[4].ID)
         {
-            SlotArray.SlotIDs = currSlotIDs;
+            
             currSlots[3] = Slots.allSlots[SelectedID];
             EquippedSlotImages[3].sprite = SpriteSlots[currSlots[3].ID];
-            saveSlots();
+          
         }
 
     }
@@ -152,24 +160,29 @@ public class SlotInventory : MonoBehaviour
     {
         if (SelectedID != currSlots[0].ID && SelectedID != currSlots[1].ID && SelectedID != currSlots[2].ID && SelectedID != currSlots[3].ID && SelectedID != currSlots[4].ID)
         {
-            SlotArray.SlotIDs = currSlotIDs;
+           
             currSlots[4] = Slots.allSlots[SelectedID];
             EquippedSlotImages[4].sprite = SpriteSlots[currSlots[4].ID];
-            saveSlots();
+            
         }
 
     }
 
     public void saveSlots()
     {
+        currSlotIDs = new int[5];
         for (int i = 0; i < currSlots.Length; i++)
         {
             currSlotIDs[i] = currSlots[i].ID;
+          
             
         }
 
         SlotArray.SlotIDs = currSlotIDs;
-        SaveSystem.checkIfExists("/saveSlotIcons.txt");
+        for (int i = 0; i < SlotArray.SlotIDs.Length; i++)
+        {
+            Debug.Log("ID for number " + i + " is " + SlotArray.SlotIDs[i]);
+        }
         SaveSystem.SaveSlotIcons(SlotArray);
     }
 
@@ -273,6 +286,6 @@ public class SlotInventory : MonoBehaviour
             EquippedSlotImages[4].sprite = SpriteSlots[currSlots[4].ID];
         }
         SetImages();
-        saveSlots();
+
     }
 }

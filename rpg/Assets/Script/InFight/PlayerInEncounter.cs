@@ -83,8 +83,6 @@ public class PlayerInEncounter : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-
-        SaveSystem.checkIfExists("/Player.txt");
         SaveSystem.LoadPlayer(player);
         PlayerHealth.addmaxHealth(player.MaxHealth);
         PlayerHealth._currentHealth = player.currentHealth;
@@ -94,7 +92,6 @@ public class PlayerInEncounter : MonoBehaviour
         PlayerHealthTextObject = GameObject.FindWithTag("HealthText");
         PlayerHealthText = PlayerHealthTextObject.GetComponent<TMP_Text>();
         slots = new SlotArray();
-        SaveSystem.checkIfExists("/saveSlotIcons.txt");
         SaveSystem.LoadSlotIcons(slots);
         equipSlots = new SlotSkill[5];
         for (int i = 0; i < equipSlots.Length; i++)
@@ -259,16 +256,17 @@ public class PlayerInEncounter : MonoBehaviour
         //Shadow
         if (IDCount[5] == 1)
         {
-            HPStealAmount = 0.05f;
+            HPStealAmount = 0.1f;
         }
         else if (IDCount[5] == 2)
         {
-            HPStealAmount = 0.1f;
+            HPStealAmount = 0.2f;
+            playerBuffs[0] += 1;
         }
         else if (IDCount[5] == 3)
         {
-            HPStealAmount = 0.2f;
-            playerBuffs[0] = 1;
+            HPStealAmount = 0.4f;
+            playerBuffs[0] += 2;
         }
 
     }
@@ -351,6 +349,13 @@ public class PlayerInEncounter : MonoBehaviour
         
     }
 
+    public void HealPlayer(int amount)
+    {
+        PlayerHealth.HealUnit(amount);
+        DamagePopup.Create(amount, "Heal", playerpopupTransform.position);
+        PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
+    }
+
     public void Dodge()
     {
         DamagePopup.CreateText("Dodged", playerpopupTransform.position);
@@ -368,10 +373,7 @@ public class PlayerInEncounter : MonoBehaviour
         player.AttackDamage = (int)(player.AttackDamage * 1.2f);
         player.MaxHealth = (int)(player.MaxHealth * 1.1f);
         player.currentHealth = (int)(player.currentHealth + ((int)(player.MaxHealth * 0.1f)));
-        if (player.level % 2 == 0)
-        {
-            player.Defense++;
-        }
+        player.Defense = (int)(player.Defense * 1.1f);
 
         player.Initiative += 2;
         

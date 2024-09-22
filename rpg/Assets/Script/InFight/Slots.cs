@@ -12,7 +12,7 @@ public static class Slots {
         new SlotSkill { Name = "Poison" , ID = 2, Unlocked = true, Desc1 = "Poison 1 on next Hit",Desc2 = "Poison 2 on next Hit",Desc3 = "Poison 4 on next Hit",},
         new SlotSkill { Name = "Shield",ID = 3, Unlocked = true, Desc1 = "+5% Defense for the Fight",Desc2 = "+10% Defense for the Fight", Desc3 = "+20% Defense for the Fight + 10% Reflection Damage"  },
         new SlotSkill { Name = "Stun", ID = 4, Unlocked = true, Desc1 = "Nothing",Desc2 = "1 Round Stun for 1 Enemy", Desc3 = "3 Round Stun for 1 Enemy" },
-        new SlotSkill { Name = "Shadow", ID = 5, Unlocked = false, Desc1 = "Steal 5% of the Damage done", Desc2 = "Steal 10% of the Damage done", Desc3 = "Dodge 1 and Steal 20% of the Damage done" }
+        new SlotSkill { Name = "Shadow", ID = 5, Unlocked = false, Desc1 = "Steal 10% of the Damage done", Desc2 = "Dodge 1 and Steal 20% of the Damage done", Desc3 = "Dodge 2 and Steal 40% of the Damage done" }
 
 
 
@@ -28,8 +28,6 @@ public static class Slots {
      
 
         UnlockedSlots slotsToLoad = new UnlockedSlots { unlockedSlots = new bool[allSlots.Count] };
-
-        SaveSystem.checkIfExists("/UnlockedSlots.txt");
         SaveSystem.LoadUnlockedSlots(slotsToLoad);
 
         if (!slotsToLoad.unlockedSlots[0])

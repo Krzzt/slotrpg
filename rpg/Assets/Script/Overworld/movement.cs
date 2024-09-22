@@ -45,21 +45,7 @@ public class movement : MonoBehaviour
        
             ProcessInputs();
             move();
-        if (Input.GetKeyDown("i") && !invIsActive)
-        {
-            invIsActive = true;
-            InvMenu.SetActive(true);
-            inventoryScript.OpenInvImages();
-            inventoryScript.AutoFill();
-        }
-        else if (Input.GetKeyDown("i") && invIsActive)
-        {
-            invIsActive = false;
-            InvMenu.SetActive(false);
-            inventoryScript.AutoFill();
-            inventoryScript.saveSlots();
-            inventoryScript.closeMenu();
-        }
+
         
         if (Input.GetKeyDown("e"))
         {

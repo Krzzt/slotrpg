@@ -20,7 +20,6 @@ public class   EncounterStart : MonoBehaviour
     private void Awake()
     {
 
-        SaveSystem.checkIfExists("/savePos.txt");
         SaveSystem.LoadPos(savePos);
         GameManagerObject = GameObject.FindWithTag("GameManager"); ;
         GameManagerScript = GameManagerObject.GetComponent<GameManager>();
@@ -75,10 +74,8 @@ public class   EncounterStart : MonoBehaviour
 
     public void StartEncounter()
     {
-        SaveSystem.checkIfExists("/saveBiome.txt");
         SaveSystem.SaveBiome(GameManagerScript.currentBiome);
         savePos.position = gameObject.transform.position;
-        SaveSystem.checkIfExists("/savePos.txt");
         SaveSystem.SavePos(savePos);
 
         StartCoroutine(WaitandLoad());

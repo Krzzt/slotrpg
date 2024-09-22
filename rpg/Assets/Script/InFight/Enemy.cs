@@ -69,7 +69,6 @@ public class Enemy : MonoBehaviour
 
         if (bossImmunities)
         {
-            SaveSystem.checkIfExists("/bossList.txt");
             SaveSystem.LoadBossList(checkList);
         }
 
@@ -88,7 +87,10 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int amount, string type)
     {
-        amount -= Defense;
+        if (type.Equals("Damage")) {
+            amount -= Defense;
+        }
+       
         if (amount <= 0)
         {
             amount = 1;
@@ -149,6 +151,12 @@ public class Enemy : MonoBehaviour
             Player.DamagePopupTransform = this.gameObject.transform.GetChild(0);
             float damageDealt = ((float)Player.DamageToDeal * (float)((float)Random.Range(900, 1301) / 1000f));
             TakeDamage((int)damageDealt, "Damage");
+
+            if (Player.HPStealAmount > 0)
+            {
+                int damageToHeal = (int)(damageDealt * Player.HPStealAmount);
+                Player.HealPlayer(damageToHeal);
+            }
 
             for (int i = 0; i < ConditionSeverity.Length; i++)
             {
@@ -310,6 +318,8 @@ public class Enemy : MonoBehaviour
 
     public void PoisonDMG(int Severity)
     {
+        //i hate coroutines :)))
+        Severity++;
         if (bossImmunities)
         {
             int dmgToDeal = (int)(EnemyHealth._currentHealth * (Severity * 0.01));
@@ -322,8 +332,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            int dmgToDeal = (int)(EnemyHealth._currentMaxHealth * (Severity * 0.03));
-
+            int dmgToDeal = (int)(EnemyHealth._currentMaxHealth * (float)(Severity * 0.03f));
             if (dmgToDeal <= 0)
             {
                 dmgToDeal = 1;
