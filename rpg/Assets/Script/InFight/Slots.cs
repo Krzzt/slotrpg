@@ -12,8 +12,9 @@ public static class Slots {
         new SlotSkill { Name = "Poison" , ID = 2, Unlocked = true, Desc1 = "Poison 1 on next Hit",Desc2 = "Poison 2 on next Hit",Desc3 = "Poison 4 on next Hit",},
         new SlotSkill { Name = "Shield",ID = 3, Unlocked = true, Desc1 = "+5% Defense for the Fight",Desc2 = "+10% Defense for the Fight", Desc3 = "+20% Defense for the Fight + 10% Reflection Damage"  },
         new SlotSkill { Name = "Stun", ID = 4, Unlocked = true, Desc1 = "Nothing",Desc2 = "1 Round Stun for 1 Enemy", Desc3 = "3 Round Stun for 1 Enemy" },
-        new SlotSkill { Name = "Shadow", ID = 5, Unlocked = false, Desc1 = "Steal 10% of the Damage done", Desc2 = "Dodge 1 and Steal 20% of the Damage done", Desc3 = "Dodge 2 and Steal 40% of the Damage done" }
-
+        new SlotSkill { Name = "Shadow", ID = 5, Unlocked = false, Desc1 = "Steal 10% of the Damage done", Desc2 = "Dodge 1 and Steal 20% of the Damage done", Desc3 = "Dodge 2 and Steal 40% of the Damage done" },
+        new SlotSkill { Name = "Spear", ID = 6, Unlocked = false, Desc1 = "Ignore 20% of the enemies Armor", Desc2 = "Ignore 40% of the enemies Armor", Desc3 = "Fully Ignore the enemies Armor"},
+        new SlotSkill { Name = "Coin", ID = 7, Unlocked = false, Desc1 = "50% chance to take 5% DMG, 50% Chance to deal 1.3x DMG", Desc2 = "50% chance to take 15% DMG, 50% Chance to deal 1.5x DMG", Desc3 = "50% chance to take 50% DMG, 50% chance to Instakill"}
 
 
 

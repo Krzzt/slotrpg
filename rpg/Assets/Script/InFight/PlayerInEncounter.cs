@@ -55,6 +55,7 @@ public class PlayerInEncounter : MonoBehaviour
 
     public float DamageReflection;
     public float HPStealAmount;
+    public float ArmorPenetration;
 
     public Player player = new Player
     {
@@ -127,6 +128,7 @@ public class PlayerInEncounter : MonoBehaviour
         DamageToDeal = player.AttackDamage;
         DamageReflection = 0;
         HPStealAmount = 0;
+        ArmorPenetration = 0;
 
 
 
@@ -268,6 +270,20 @@ public class PlayerInEncounter : MonoBehaviour
             HPStealAmount = 0.4f;
             playerBuffs[0] += 2;
         }
+        //Spear
+        if (IDCount[6] == 1)
+        {
+            ArmorPenetration = 0.2f;
+        }
+        else if (IDCount[6] == 2)
+        {
+            ArmorPenetration = 0.4f;
+        }
+        else if (IDCount[6] == 3)
+        {
+            ArmorPenetration = 1f;
+        }
+
 
     }
 
