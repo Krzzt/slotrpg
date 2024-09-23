@@ -1,1 +1,1 @@
-{"level":3,"exp":6,"expToNextLevel":225,"AttackDamage":72,"MaxHealth":605,"currentHealth":615,"Defense":12,"Initiative":12}
+{"level":3,"exp":58,"expToNextLevel":225,"AttackDamage":72,"MaxHealth":605,"currentHealth":615,"Defense":12,"Initiative":12}

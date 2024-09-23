@@ -68,7 +68,6 @@ public class SlotInventory : MonoBehaviour
         currSlots = new SlotSkill[5];
         for (int i = 0; i < SlotArray.SlotIDs.Length; i++)
         {
-            Debug.Log("Saved IDs: " + SlotArray.SlotIDs[i]);
             currSlots[i] = Slots.allSlots[SlotArray.SlotIDs[i]];
         }
        

@@ -105,12 +105,12 @@ public class PlayerInEncounter : MonoBehaviour
         DamageToDeal = player.AttackDamage;
 
 
+        FightManagerObject = GameObject.FindWithTag("FightManager");
+        FightManagerScript = FightManagerObject.GetComponent<FightManager>();
     }
     private void Start()
     {
 
-        FightManagerObject = GameObject.FindWithTag("FightManager");
-        FightManagerScript = FightManagerObject.GetComponent<FightManager>();
         PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
     }
 
