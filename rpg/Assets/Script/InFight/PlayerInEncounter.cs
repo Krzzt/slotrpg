@@ -56,6 +56,7 @@ public class PlayerInEncounter : MonoBehaviour
     public float DamageReflection;
     public float HPStealAmount;
     public float ArmorPenetration;
+    public bool instakill;
 
     public Player player = new Player
     {
@@ -129,6 +130,7 @@ public class PlayerInEncounter : MonoBehaviour
         DamageReflection = 0;
         HPStealAmount = 0;
         ArmorPenetration = 0;
+        instakill = false;
 
 
 
@@ -283,6 +285,51 @@ public class PlayerInEncounter : MonoBehaviour
         {
             ArmorPenetration = 1f;
         }
+        //Coin
+        if (IDCount[7] == 1)
+        {
+            int random = Random.Range(0, 2);
+            switch (random) {
+                case 0:
+                    DamagePlayer((int)(player.MaxHealth * 0.05f), "selfDMG", gameObject);
+                    break;
+
+                case 1:
+                    DamageToDeal *= 1.3f;
+                    break;
+            
+            }
+        }
+        else if (IDCount[7] == 2)
+        {
+            int random = Random.Range(0, 2);
+            switch (random)
+            {
+                case 0:
+                    DamagePlayer((int)(player.MaxHealth * 0.15f), "selfDMG", gameObject);
+                    break;
+
+                case 1:
+                    DamageToDeal *= 1.5f;
+                    break;
+
+            }
+        }
+        else if (IDCount[7] == 3)
+        {
+            int random = Random.Range(0, 2);
+            switch (random)
+            {
+                case 0:
+                    DamagePlayer((int)(player.MaxHealth * 0.5f), "selfDMG", gameObject);
+                    break;
+
+                case 1:
+                    instakill = true;
+                    break;
+
+            }
+        }
 
 
     }
@@ -334,35 +381,45 @@ public class PlayerInEncounter : MonoBehaviour
 
     public void DamagePlayer(int amount,string type, GameObject Attacker)
     {
-        if (playerBuffs[0] <= 0)
+        if (type.Equals("selfDMG"))
         {
-            if (DamageReflection > 0)
-            {
-                Enemy currAttacker = Attacker.GetComponent<Enemy>();
-                int damageToGive = (int)(amount * DamageReflection);
-                if (damageToGive <= 0)
-                {
-                    damageToGive = 1;
-                }
-                currAttacker.TakeDamage(damageToGive, "Damage");
-            }
-
-            amount -= (int)(player.Defense * InFightDefenseBooster);
-            if (amount <= 0)
-            {
-                amount = 1;
-            }
             PlayerHealth.DamageUnit(amount);
             DamagePopup.Create(amount, type, playerpopupTransform.position);
             PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
         }
         else
         {
-            Dodge();
-            playerBuffs[0]--;
+            if (playerBuffs[0] <= 0)
+            {
+                if (DamageReflection > 0)
+                {
+                    Enemy currAttacker = Attacker.GetComponent<Enemy>();
+                    int damageToGive = (int)(amount * DamageReflection);
+                    if (damageToGive <= 0)
+                    {
+                        damageToGive = 1;
+                    }
+                    currAttacker.TakeDamage(damageToGive, "Damage");
+                }
+
+                amount -= (int)(player.Defense * InFightDefenseBooster);
+                if (amount <= 0)
+                {
+                    amount = 1;
+                }
+                PlayerHealth.DamageUnit(amount);
+                DamagePopup.Create(amount, type, playerpopupTransform.position);
+                PlayerHealthText.SetText("Health: " + PlayerHealth._currentHealth + "/" + PlayerHealth._currentMaxHealth);
+            }
+            else
+            {
+                Dodge();
+                playerBuffs[0]--;
+            }
+
         }
-    
-        
+
+
     }
 
     public void HealPlayer(int amount)

@@ -23,6 +23,8 @@ TagManager:
   - PickUp
   - TextBoxText
   - PickUpText
+  - ShopContinue
+  - ShopSlot
   layers:
   - Default
   - TransparentFX

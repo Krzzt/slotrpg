@@ -87,16 +87,26 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int amount, string type)
     {
-        if (type.Equals("Damage")) {
-            amount -= Defense;
-        }
-       
-        if (amount <= 0)
+        if (Player.instakill)
         {
-            amount = 1;
+            EnemyHealth.DamageUnit(EnemyHealth._currentMaxHealth);
+            DamagePopup.Create(EnemyHealth._currentMaxHealth, type, Player.DamagePopupTransform.position);
         }
-        EnemyHealth.DamageUnit(amount);
-        DamagePopup.Create(amount, type, Player.DamagePopupTransform.position);
+        else
+        {
+            if (type.Equals("Damage"))
+            {
+                amount -= (int)(Defense * (float)(1 - Player.ArmorPenetration));
+            }
+
+            if (amount <= 0)
+            {
+                amount = 1;
+            }
+            EnemyHealth.DamageUnit(amount);
+            DamagePopup.Create(amount, type, Player.DamagePopupTransform.position);
+        }
+
         
         if (EnemyHealth._currentHealth <= 0)
         {

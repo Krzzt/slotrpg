@@ -1,17 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Store : MonoBehaviour
 {
+    public GameObject SlotMachine;
+    public GameObject ContinueButton;
+
+    private GameObject UniPlayerObject;
+    private UniversalSlots UniPlayerScript;
 
     public GameObject ShopOverlay;
 
 
+    public int[] SlotIconIDs = new int[2];
 
+    public Image[] SlotMachineImages = new Image[3];
 
     private void Awake()
     {
+        SlotMachine = GameObject.FindWithTag("ShopSlot");
+        ContinueButton = GameObject.FindWithTag("ShopContinue");
+        UniPlayerObject = GameObject.FindWithTag("UniPlayer");
+        UniPlayerScript = UniPlayerObject.GetComponent<UniversalSlots>();
+
         ShopOverlay.SetActive(false);
     }
     // Start is called before the first frame update
@@ -37,11 +51,13 @@ public class Store : MonoBehaviour
     public void ActivateShop()
     {
         ShopOverlay.SetActive(true);
+        SlotMachine.SetActive(false); 
     }
 
     public void OpenSlots(int SlotType)
     {
         ShopOverlay.SetActive(false);
+        SlotMachine.SetActive(true);
         //0 = IconLootBox
         //1 = TrinketLootBox
         //2 = CharmLootBox
@@ -58,12 +74,18 @@ public class Store : MonoBehaviour
 
     IEnumerator SlotSpin(int SlotType)
     {
-        int itemtoGet = 0;
+        int itemtoGet = -1;
         yield return new WaitForSeconds(0.3f);
         switch (SlotType)
         {
             case 0:
-                
+                itemtoGet = Random.Range(0, SlotIconIDs.Length);
+                SlotMachineImages[0].sprite = UniPlayerScript.SlotSprites[SlotIconIDs[itemtoGet]];
+                yield return new WaitForSeconds(0.2f);
+                SlotMachineImages[1].sprite = UniPlayerScript.SlotSprites[SlotIconIDs[itemtoGet]];
+                yield return new WaitForSeconds(0.2f);
+                SlotMachineImages[2].sprite = UniPlayerScript.SlotSprites[SlotIconIDs[itemtoGet]];
+                Slots.UnlockSlot(SlotIconIDs[itemtoGet]);
                 break;
             case 1:
 
