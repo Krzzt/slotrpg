@@ -68,6 +68,7 @@ public class PlayerInEncounter : MonoBehaviour
         currentHealth = 500,
         Defense = 10,
         Initiative = 8,
+        Money = 0,
 
     };
 
@@ -471,4 +472,5 @@ public class Player
     public int currentHealth;
     public int Defense;
     public int Initiative;
+    public int Money;
 }

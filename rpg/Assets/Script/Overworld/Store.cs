@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class Store : MonoBehaviour
 
     private GameObject UniPlayerObject;
     private UniversalSlots UniPlayerScript;
+    private Player PlayerToLoad;
 
     public GameObject ShopOverlay;
 
@@ -18,6 +20,7 @@ public class Store : MonoBehaviour
     public int[] SlotIconIDs = new int[2];
 
     public Image[] SlotMachineImages = new Image[3];
+    public TMP_Text UnlockedText;
 
     private void Awake()
     {
@@ -25,6 +28,7 @@ public class Store : MonoBehaviour
         ContinueButton = GameObject.FindWithTag("ShopContinue");
         UniPlayerObject = GameObject.FindWithTag("UniPlayer");
         UniPlayerScript = UniPlayerObject.GetComponent<UniversalSlots>();
+        SaveSystem.LoadPlayer(PlayerToLoad);
 
         ShopOverlay.SetActive(false);
     }
@@ -52,6 +56,11 @@ public class Store : MonoBehaviour
     {
         ShopOverlay.SetActive(true);
         SlotMachine.SetActive(false); 
+    }
+
+    public void checkForMoney(int SlotType)
+    {
+
     }
 
     public void OpenSlots(int SlotType)
@@ -86,6 +95,7 @@ public class Store : MonoBehaviour
                 yield return new WaitForSeconds(0.2f);
                 SlotMachineImages[2].sprite = UniPlayerScript.SlotSprites[SlotIconIDs[itemtoGet]];
                 Slots.UnlockSlot(SlotIconIDs[itemtoGet]);
+                UnlockedText.SetText("Unlocked " + Slots.allSlots[SlotIconIDs[itemtoGet]].Name);
                 break;
             case 1:
 

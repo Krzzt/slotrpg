@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Enemy : MonoBehaviour
     public FightManager FightManager;
 
     public int expValue;
+    public int moneyValue;
 
     public int AttackDamage;
     public int HealAmount;
@@ -49,6 +51,7 @@ public class Enemy : MonoBehaviour
     void Awake()
     {
         expValue *= level;
+        moneyValue *= level;
         AttackDamage *= level;
         IncreaseMaxHealth *= level;
         HealAmount *= level;

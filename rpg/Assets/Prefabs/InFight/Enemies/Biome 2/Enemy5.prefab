@@ -136,6 +136,7 @@ MonoBehaviour:
   FightManagerObject: {fileID: 0}
   FightManager: {fileID: 0}
   expValue: 25
+  moneyValue: 25
   AttackDamage: 50
   HealAmount: 0
   Defense: 30

@@ -17,6 +17,7 @@ public class FightManager : MonoBehaviour
     public int currTurn = 0;
 
     public int totalFightExp;
+    public int totalFightMoney;
 
     public bool fightIsOver;
 
@@ -136,6 +137,7 @@ public class FightManager : MonoBehaviour
         for (int i = 0; i < EnemyList.Count; i++)
         {
             totalFightExp += EnemyList[i].expValue;
+            totalFightMoney += EnemyList[i].moneyValue;
 
         }
         if (Characters[currTurn] == PlayerObject)
