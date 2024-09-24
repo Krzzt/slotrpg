@@ -3252,6 +3252,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4357822fc15ec144ab1cc4f8bb52ce47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SlotMachine: {fileID: 0}
+  ContinueButton: {fileID: 0}
   ShopOverlay: {fileID: 0}
   SlotIconIDs: 0600000007000000
   SlotMachineImages:
