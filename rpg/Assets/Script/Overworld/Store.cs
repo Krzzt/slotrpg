@@ -17,7 +17,7 @@ public class Store : MonoBehaviour
     public GameObject ShopOverlay;
 
 
-    public int[] SlotIconIDs = new int[2];
+    public int[] SlotIconIDs = new int[2]; //Welche Slots es zu kaufen gibt
 
     public Image[] SlotMachineImages = new Image[3];
     public TMP_Text UnlockedText;
